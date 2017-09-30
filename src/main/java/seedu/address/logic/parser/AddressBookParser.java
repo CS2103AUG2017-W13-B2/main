@@ -63,6 +63,9 @@ public class AddressBookParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
+        case SelectCommand.COMMAND_ALIAS:
+            return new SelectCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
@@ -100,6 +103,9 @@ public class AddressBookParser {
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+
+        case RedoCommand.COMMAND_ALIAS:
             return new RedoCommand();
 
         default:
