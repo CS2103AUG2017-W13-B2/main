@@ -70,7 +70,7 @@ public class AddressBookParser {
             return new DeleteCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_ALIAS:
-             return new DeleteCommandParser().parse(arguments);
+            return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -82,13 +82,13 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_ALIAS:
-             return new FindCommandParser().parse(arguments);
+            return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
         case ListCommand.COMMAND_ALIAS:
-             return new ListCommand();
+            return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
