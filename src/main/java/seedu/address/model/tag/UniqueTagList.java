@@ -10,6 +10,7 @@ import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 
 /**
@@ -91,6 +92,22 @@ public class UniqueTagList implements Iterable<Tag> {
 
         assert CollectionUtil.elementsAreUnique(internalList);
     }
+
+    /**
+     * Deletes a Tag to the list.
+     *
+     * @throws IllegalValueException if the Tag to add is not exist in the tag list.
+     */
+    public void remove(Tag toDelete) throws IllegalValueException {
+        requireNonNull(toDelete);
+        if (!contains(toDelete)) {
+            throw new IllegalValueException("Delete tag must exists first");
+        }
+        internalList.remove(toDelete);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
+    }
+
 
     @Override
     public Iterator<Tag> iterator() {
