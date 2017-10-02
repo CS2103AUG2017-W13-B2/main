@@ -35,7 +35,7 @@ public class UniqueTagListTest {
             UniqueTagList uniqueTagList2 = new UniqueTagList();
             assertTrue(uniqueTagList.equals(uniqueTagList2));
         } catch (IllegalValueException e) {
-
+            System.out.print(e.getStackTrace());
         }
     }
 }
