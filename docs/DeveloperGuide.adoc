@@ -787,7 +787,7 @@ Use case resumes at step 2.
 3.  User requests to clear the list
 4.  AddressBook shows a message for confirmation
 5.  User confirms clearing the list
-4.  AddressBook clears the list
+6.  AddressBook clears the list
 +
 Use case ends.
 
