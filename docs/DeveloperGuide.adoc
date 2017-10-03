@@ -732,6 +732,20 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |find all the friends or other relationships I have | have a good idea of the type of relationships I have with the contacts of my address book
+
+|`* * *` |user |be able to view photos of my contacts in the address book | recognize contacts more easily
+
+|`* * *` |user |be able to find persons based on name and Date of Birth | we can narrow the scope when users have same names
+
+|`* *` |user |view a more attractive icon for the AddressBook | the AddressBook has a better appeal
+
+|`* *` |user |view the details of a person on Facebook by clicking on the name | get more information of the person
+
+|`* *` |user |want a better name for my Application | have a more appealing name for my application
+
+|`* *` |user |want to get notifications about birthdays/events coming up | be aware of important events in the coming week
 |=======================================================================
 
 {More to be added}
