@@ -732,6 +732,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |find all the friends or other relationships I have | have a good idea of the type of relationships I have with the contacts of my address book
+
+|`* * *` |user |be able to view photos of my contacts in the address book | recognize contacts more easily
+
+|`* * *` |user |be able to find persons based on name and Date of Birth | we can narrow the scope when users have same names
+
+|`* *` |user |view a more attractive icon for the AddressBook | the AddressBook has a better appeal
+
+|`* *` |user |view the details of a person on Facebook by clicking on the name | get more information of the person
+
+|`* *` |user |want a better name for my Application | have a more appealing name for my application
+
+|`* *` |user |want to get notifications about birthdays/events coming up | be aware of important events in the coming week
+
+|`* *` |users with many person in address book |view all the tags by a single command| have an idea of the different associations I have with my contacts
+
+|`* * *` |user |directly contact a person by email, by clicking on email button | have instant access to communication
 |=======================================================================
 
 {More to be added}
@@ -767,6 +785,37 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+=== Use case: Email Intents
+
+*MSS*
+
+1. User clicks on email button.
+2. AddressBook opens up the Gmail webpage.
+3. The email address of the person to be contacted is already filled in.
+4. User types in the message and sends the email.
++
+Use case ends.
+
+=== Use case: Social Integration
+
+*MSS*
+
+1. User clicks on the button, 'Social Media'.
+2. AddressBook sends an intent to FaceBook where the homepage of the person's account is displayed.
+3. User gets all the required information
++
+Use case ends.
+
+*EXTENSIONS*
+
+[none]
+* 2a. The person does not have a FaceBook account.
++
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case ends.
+
 {More to be added}
 
 [appendix]
@@ -775,6 +824,8 @@ Use case resumes at step 2.
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should work on both 32-bit and 64-bit environment.
+.  Should have enough security features to protect data of a user.
 
 {More to be added}
 
@@ -793,6 +844,13 @@ Private contact detail
 
 ....
 A contact detail that is not meant to be shared with others
+....
+
+[[Environment-bit]]
+Environment Bit
+
+....
+32/64 bits refer to the number of bits that compose a data element
 ....
 
 [appendix]
