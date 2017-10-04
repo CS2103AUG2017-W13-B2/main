@@ -779,6 +779,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
+|`*`|user |be notified of birthdays |send them well wishes
+
+|`*`|user |delete people with a specific tag |clean up my list
+
+|`* * *`|user |confirm before clearing |not clear the contents accidentally
+
+|`* *`|user |see a history bar |keep track of my previous searches
+
+|`* *`|user |see random people on the front page |get in touch with old friends
+
+|`*`|user |log in |access privately
+
+|`*`|user |customise the display |view the list to my preference
+
+|`* *`|user with frequent contacts |have a favourites list |find them easily
+
+|`* * *`|user |edit a person |modify an address conveniently
+
 |=======================================================================
 
 
@@ -942,6 +960,57 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Confirmation before clearing
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to clear the list
+4.  AddressBook shows a message for confirmation
+5.  User confirms clearing the list
+6.  AddressBook clears the list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 5a. User chooses to cancel.
++
+Use case ends.
+
+* 5b. The given input is invalid.
++
+[none]
+** 5b1. AddressBook shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Random person at front page
+
+*MSS*
+
+1.  AddressBook shows a random person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+** 1a1. AddressBook shows a message to prompt adding new contacts.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
@@ -956,6 +1025,7 @@ Use case resumes at step 2.
 .  Should secure contact information safely.
 .  Should be able to open the application in 2 seconds.
 .  The application should provide several aesthetic designed color sets.
+.  Should respond within two seconds.
 
 {More to be added}
 =======
