@@ -729,23 +729,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add date of birth of a person |remember the birthday of my friends
 
-|`*` |user |sort persons by date of birth |see a list of people from youngest to oldest or oldest to youngest
-
-|`* *` |user with many persons in the address book |sort persons by name |locate a person easily
-
-|`* *` |user with many persons in the address book |sort persons by date of insertion |see latest inserted persons
-
 |`* * *` |user |see person's social media page in AddressBook|check persons's social media page easily and directly in one app
 
 |`* * *` |user added many tags to persons|customize tag colour|visualize different tag by its color
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-
-|`*` |user |find all the friends or other relationships I have | have a good idea of the type of relationships I have with the contacts of my address book
+|`* * *` |user added many tags to persons|customize tag colour|visualize different tag by its color
 
 |`* * *` |user |be able to view photos of my contacts in the address book | recognize contacts more easily
 
 |`* * *` |user |be able to find persons based on name and Date of Birth | we can narrow the scope when users have same names
+
+|`* * *` |user |directly contact a person by email, by clicking on email button | have instant access to communication
+
+|`* * *`|user |confirm before clearing |not clear the contents accidentally
+
+|`* * *`|user |edit a person |modify an address conveniently
 
 |`* *` |user |view a more attractive icon for the AddressBook | the AddressBook has a better appeal
 
@@ -756,8 +754,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |want to get notifications about birthdays/events coming up | be aware of important events in the coming week
 
 |`* *` |users with many person in address book |view all the tags by a single command| have an idea of the different associations I have with my contacts
-
-|`* * *` |user |directly contact a person by email, by clicking on email button | have instant access to communication
 
 |`* *` |user |share the contact information in my addressbook to others' |share contact infomation conveniently
 
@@ -775,6 +771,20 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |be able to click on contact to open windows to display and modify their information|look through and modify their information easily
 
+|`* *` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`* *`|user |see a history bar |keep track of my previous searches
+
+|`* *`|user |see random people on the front page |get in touch with old friends
+
+|`* *`|user with frequent contacts |have a favourites list |find them easily
+
+|`*` |user |sort persons by date of birth |see a list of people from youngest to oldest or oldest to youngest
+
+|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |find all the friends or other relationships I have | have a good idea of the type of relationships I have with the contacts of my address book
+
 |`*` |user |be able to move the windows and tables in the user interface around|choose the combination of positions of windows as I like
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
@@ -783,19 +793,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*`|user |delete people with a specific tag |clean up my list
 
-|`* * *`|user |confirm before clearing |not clear the contents accidentally
-
-|`* *`|user |see a history bar |keep track of my previous searches
-
-|`* *`|user |see random people on the front page |get in touch with old friends
-
 |`*`|user |log in |access privately
 
 |`*`|user |customise the display |view the list to my preference
-
-|`* *`|user with frequent contacts |have a favourites list |find them easily
-
-|`* * *`|user |edit a person |modify an address conveniently
 
 |=======================================================================
 
@@ -1028,7 +1028,6 @@ Use case ends.
 .  Should respond within two seconds.
 
 {More to be added}
-=======
 
 [appendix]
 == Glossary

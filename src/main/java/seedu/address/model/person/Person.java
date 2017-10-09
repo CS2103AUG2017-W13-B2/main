@@ -22,18 +22,19 @@ public class Person implements ReadOnlyPerson {
     private ObjectProperty<Phone> phone;
     private ObjectProperty<Email> email;
     private ObjectProperty<Address> address;
-
+    private ObjectProperty<DateOfBirth> Date;
     private ObjectProperty<UniqueTagList> tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, DateOfBirth dateOfBirth, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = new SimpleObjectProperty<>(name);
         this.phone = new SimpleObjectProperty<>(phone);
         this.email = new SimpleObjectProperty<>(email);
         this.address = new SimpleObjectProperty<>(address);
+        this.Date = new SimpleObjectProperty<>(dateOfBirth);
         // protect internal tags from changes in the arg list
         this.tags = new SimpleObjectProperty<>(new UniqueTagList(tags));
     }
@@ -42,7 +43,7 @@ public class Person implements ReadOnlyPerson {
      * Creates a copy of the given ReadOnlyPerson.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getDateOfBirth(),
                 source.getTags());
     }
 
@@ -53,6 +54,20 @@ public class Person implements ReadOnlyPerson {
     @Override
     public ObjectProperty<Name> nameProperty() {
         return name;
+    }
+
+    public void setDateOfBirth(DateOfBirth date) {
+        this.Date.set(requireNonNull(date));
+    }
+
+    @Override
+    public  DateOfBirth getDateOfBirth() {
+        return Date.get();
+    }
+
+    @Override
+    public ObjectProperty<DateOfBirth> dateOfBirthProperty() {
+        return Date;
     }
 
     @Override
