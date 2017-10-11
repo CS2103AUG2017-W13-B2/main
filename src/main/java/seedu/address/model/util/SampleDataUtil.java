@@ -40,6 +40,10 @@ public class SampleDataUtil {
                     new Remark(" "), getTagSet("classmates")),
                 new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                     new Address("Blk 45 Aljunied Street 85, #11-31"), new DateOfBirth("13.10.1997"),
+                    getTagSet("colleagues")),
+                new Person(new Name("Ronak Lakhotia"), new Phone("93911558"), new Email("email@gmail.com"),
+                    new Address("Prince Georges Park"), new DateOfBirth(("13.10.1997")),
+                    getTagSet("colleagues"))
                     new Remark(" "), getTagSet("colleagues"))
             };
         } catch (IllegalValueException e) {

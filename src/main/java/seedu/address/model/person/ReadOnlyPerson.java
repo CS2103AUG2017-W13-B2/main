@@ -53,6 +53,8 @@ public interface ReadOnlyPerson {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Date Of Birth: ")
+                .append(getDateOfBirth())
                 .append(" Date of birth: ")
                 .append(getDateOfBirth())
                 .append(" Remark: ")

@@ -112,6 +112,26 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+
+=== Searching a person : `search`
+
+Lists persons with the given name and Date Of Birth.
+Format: `search NAME DATE_OF_BIRTH`
+
+image::Search.png[width="600"]
+
+****
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* The order of keywords matter. e.g. in `search Hans 13.10.1997` Hans and 13.10.1997 cannot be interchanged
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching both name and Date Of Birth will be returned.
+****
+
+Examples:
+
+* `search John 13.10.1997` +
+Returns persons with name `John` and Date of Birth `13.10.1997`.
+
 === Locating persons by tag: `find/t`
 
 Finds persons whose tags contain any of the given keywords. +
@@ -126,10 +146,12 @@ Make sure there are no whitespaces between `find` and `/t`!
 * All the tags are searched.
 * Only full words will be matched e.g. `Friend` will not match `Friends`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `friends` will return `John Doe`, `Hans Gruber`
+
 ****
 
 Examples:
 
+=======
 * `find/t friends` +
 Returns `John Doe` and `Hans Gruber`
 * `find/t friends colleagues` +
@@ -267,6 +289,17 @@ Format: `clear`
 
 Exits the program. +
 Format: `exit`
+
+=== Coming in V2.0
+
+image::EmailThem.png[width="600"]
+
+* Add a notification system to notify users about upcoming birthdays +
+* Send Email Intents to contacts +
+* Social Integration +
+* Have a favourites list +
+* Be able to view contacts frequently viewed +
+
 
 === Saving the data
 
