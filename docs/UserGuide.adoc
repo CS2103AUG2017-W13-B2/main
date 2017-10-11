@@ -12,9 +12,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `W13-B2`      Since: `Aug 2017`      Licence: `MIT`
-
-image::Present.png[width="790"]
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Quick Start
 
@@ -137,13 +135,13 @@ Returns `John Doe` and `Hans Gruber`
 * `find/t friends colleagues` +
 Returns any person having tags `Friends` or `Colleagues`
 
-image::Search.png[width="600"]
 
 === Searching a person : `search`
 
 Lists persons with the given name and Date Of Birth.
 Format: `search NAME DATE_OF_BIRTH`
 
+image::docs/images/Search.png[width="600"]
 
 ****
 * The search is case-insensitive. e.g `hans` will match `Hans`
