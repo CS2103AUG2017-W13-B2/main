@@ -1,4 +1,4 @@
-= Address Book (Level 4)
+= Weaver
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
@@ -8,7 +8,7 @@ https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https:
 
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/presentation.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
@@ -21,6 +21,7 @@ endif::[]
 * What's different from https://github.com/se-edu/addressbook-level3[level 3]:
 ** A more sophisticated GUI that includes a list  panel and an in-built Browser.
 ** More details about each user like Date Of Birth.
+** Find Command made more powerful by finding by name and Date Of Birth
 ** More test cases, including automated GUI testing.
 ** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
 
