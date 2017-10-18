@@ -298,6 +298,27 @@ The `color` command fails as `invalid_color` is not supported.
 * `color t/not_existing_tag c/yellow` +
 The `color` command fails as `not_existing_tag` does not exit in current database.
 
+=== Change font size : `fs`
+
+Change the font size of the entire application +
+Format: `fs [FONT SIZE]` or `fs [+/-]`
+****
+* The available font sizes are: xs(extra small), s(small), m(medium), l(large), xl(extra large).
+* The default font size is m.
+* The font size changed will be auto stored.
+* You can increase (or decrease) the font size by pressing the "+" (or "-") button in the right top corner.
+****
+
+Examples:
+
+* `fs xl`
+
+* `fs s`
+
+* `fs +`
+
+* `fs -` +
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
@@ -341,6 +362,10 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 e.g. `find James Jake`
 * *Find by Tags* : `find/t KEYWORD [MORE_KEYWORDS]` +
 e.g. `find/t friends family`
+* *Customize tag color* : `color c/[COLOR] t/[TAG] t/[TAG] t/[MORE_TAGS]` +
+e.g. `color c/red t/friend t/family`
+* *Chang font size* : `fs [FONT SIZE]` or  `fs +/-` +
+e.g. `fs xs` `fs +` `fs -`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +

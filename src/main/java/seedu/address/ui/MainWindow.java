@@ -21,7 +21,10 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.font.FontSize;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -44,6 +47,8 @@ public class MainWindow extends UiPart<Region> {
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
+
+    private CommandBox commandBox;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -140,7 +145,7 @@ public class MainWindow extends UiPart<Region> {
                 logic.getFilteredPersonList().size());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(logic);
+        this.commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -167,6 +172,7 @@ public class MainWindow extends UiPart<Region> {
     private void setWindowDefaultSize(UserPrefs prefs) {
         primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
         primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
+        FontSize.setCurrentFontSizeLabel(prefs.getGuiSettings().getFontSize());
         if (prefs.getGuiSettings().getWindowCoordinates() != null) {
             primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
             primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
@@ -183,7 +189,7 @@ public class MainWindow extends UiPart<Region> {
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), FontSize.getCurrentFontSizeLabel());
     }
 
     /**
@@ -220,4 +226,22 @@ public class MainWindow extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
     }
+
+    /**
+     * Increase the font size.
+     */
+    @FXML
+    private void handleIncreaseFontSize() throws CommandException, ParseException {
+        commandBox.handleCommandInputChanged(FontSize.INCREASE_FONT_SIZE_COMMAND);
+    }
+
+    /**
+     * Decrease the font size.
+     */
+    @FXML
+    private void handleDecreaseFontSize() throws CommandException, ParseException {
+        commandBox.handleCommandInputChanged(FontSize.DECREASE_FONT_SIZE_COMMAND);
+    }
+
+
 }

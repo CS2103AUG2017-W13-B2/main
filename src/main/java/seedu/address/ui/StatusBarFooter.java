@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.ChangeFontSizeEvent;
+import seedu.address.model.font.FontSize;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -24,7 +26,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     /**
      * Used to generate time stamps.
-     *
+     * <p>
      * TODO: change clock to an instance variable.
      * We leave it as a static variable because manual dependency injection
      * will require passing down the clock reference all the way from MainApp,
@@ -50,6 +52,7 @@ public class StatusBarFooter extends UiPart<Region> {
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
         setTotalPerson(numberOfTotalPersons);
+        registerAsAnEventHandler(this);
     }
 
     /**
@@ -76,6 +79,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     /**
      * Get the display text in status bar totalPersons for a given number
+     *
      * @param numberOfTotalPersons
      * @return string of display text
      */
@@ -102,5 +106,17 @@ public class StatusBarFooter extends UiPart<Region> {
                 "Setting last updated status to " + lastUpdated));
         setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
         setTotalPerson(abce.data.getPersonList().size());
+    }
+
+    @Subscribe
+    private void handleChangeFontSizeEvent(ChangeFontSizeEvent event) {
+        setFontSize(event.getFontSize());
+    }
+
+    private void setFontSize(String fontSize) {
+        String fxFomatString = FontSize.getassociatefxfontsizestring(fontSize);
+        syncStatus.setStyle(fxFomatString);
+        saveLocationStatus.setStyle(fxFomatString);
+        totalPersons.setStyle(fxFomatString);
     }
 }
