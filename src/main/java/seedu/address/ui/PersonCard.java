@@ -1,7 +1,11 @@
 package seedu.address.ui;
 
+import static seedu.address.model.font.FontSize.getassociatefxfontsizestring;
+
 import java.util.HashMap;
 import java.util.Random;
+
+import com.google.common.eventbus.Subscribe;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -9,6 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.events.ui.ChangeFontSizeEvent;
+import seedu.address.commons.events.ui.ChangeTagColorEvent;
+import seedu.address.model.font.FontSize;
 import seedu.address.model.person.ReadOnlyPerson;
 
 
@@ -55,8 +62,11 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        initTags(person);
         bindListeners(person);
+        registerAsAnEventHandler(this);
+        String currentFontSize = FontSize.getCurrentFontSizeLabel();
+        setFontSize(currentFontSize);
+        initTags(person, currentFontSize);
     }
 
 
@@ -73,19 +83,28 @@ public class PersonCard extends UiPart<Region> {
         remark.textProperty().bind(Bindings.convert(person.remarkProperty()));
         person.tagProperty().addListener((observable, oldValue, newValue) -> {
             tags.getChildren().clear();
-            initTags(person);
+            initTags(person, FontSize.getCurrentFontSizeLabel());
         });
     }
 
+    @Subscribe
+    private void handleChangeTagColorEvent(ChangeTagColorEvent event) {
+        initTags(person, FontSize.getCurrentFontSizeLabel());
+    }
+
     /**
-     * Initialize tag color for each tag
+     * Initialize tag color and font size for each tag
      *
      * @param person
      */
-    private void initTags(ReadOnlyPerson person) {
+    private void initTags(ReadOnlyPerson person, String fontSizeLabel) {
+        tags.getChildren().clear();
+
+        String fxFormatFontSize = FontSize.getassociatefxfontsizestring(fontSizeLabel);
+
         person.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
-            tagLabel.setStyle("-fx-background-color: " + tag.tagColor.tagColorName);
+            tagLabel.setStyle(fxFormatFontSize + "-fx-background-color: " + tag.tagColor.tagColorName);
             tags.getChildren().add(tagLabel);
         });
     }
@@ -107,4 +126,29 @@ public class PersonCard extends UiPart<Region> {
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }
+
+    @Subscribe
+    private void handleChangeFontSizeEvent(ChangeFontSizeEvent event) {
+        initTags(person, event.getFontSize());
+        setFontSize(event.getFontSize());
+    }
+
+    private void setFontSize(String newFontSize) {
+        assert (FontSize.isValidFontSize(newFontSize));
+
+        String fxFormatFontSize = getassociatefxfontsizestring(newFontSize);
+        setFontSizeForAllAttributesExceptTag(fxFormatFontSize);
+    }
+
+
+    private void setFontSizeForAllAttributesExceptTag(String fontSize) {
+        name.setStyle(fontSize);
+        id.setStyle(fontSize);
+        phone.setStyle(fontSize);
+        address.setStyle(fontSize);
+        email.setStyle(fontSize);
+        date.setStyle(fontSize);
+        remark.setStyle(fontSize);
+    }
+
 }

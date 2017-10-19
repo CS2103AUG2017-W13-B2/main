@@ -17,10 +17,10 @@ public class DateOfBirth {
      *
      * @throws IllegalValueException if given dateOfBirth string is invalid.
      */
-    public DateOfBirth(String Date) {
+    public DateOfBirth(String date) {
 
-        requireNonNull(Date);
-        String trimmedDate = Date.trim();
+        requireNonNull(date);
+        String trimmedDate = date.trim();
         this.date = trimmedDate;
     }
     @Override

@@ -23,12 +23,12 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE));
         }
 
-        String[] Args = trimmedArgs.split("r/");
+        String[] argus = trimmedArgs.split("r/");
 
-        Integer Index = Integer.parseInt(Args[0].trim());
-        Remark Remark = new Remark(Args[1].trim());
+        Integer index = Integer.parseInt(argus[0].trim());
+        Remark remark = new Remark(argus[1].trim());
 
-        return new RemarkCommand(Index, Remark);
+        return new RemarkCommand(index, remark);
     }
 
 }
