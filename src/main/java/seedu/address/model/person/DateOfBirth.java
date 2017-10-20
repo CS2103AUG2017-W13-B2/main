@@ -24,7 +24,7 @@ public class DateOfBirth {
             this.date = "";
         }
     }
-    
+
     @Override
     public String toString() {
         return date;
