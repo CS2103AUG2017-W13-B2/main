@@ -3,6 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -12,8 +14,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.FileImage;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -24,6 +28,7 @@ import seedu.address.model.tag.TagColor;
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
  */
+
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -65,15 +70,34 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+
         addressBook.removePerson(target);
         indicateAddressBookChanged();
-    }
 
+    }
     @Override
     public synchronized void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
+
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
+
+
+    }
+    @Override
+    public synchronized void addPhotoPerson(ReadOnlyPerson person, String FilePath, Index targetIndex)
+            throws PersonNotFoundException,
+            FileNotFoundException, IOException {
+
+        try {
+            person.imageProperty().setValue( new FileImage(FilePath));
+            updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            indicateAddressBookChanged();
+
+        }
+        catch (IllegalValueException ive) {
+            System.out.println("Error encountered");
+        }
     }
 
     @Override
@@ -126,5 +150,4 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook.equals(other.addressBook)
                 && filteredPersons.equals(other.filteredPersons);
     }
-
 }

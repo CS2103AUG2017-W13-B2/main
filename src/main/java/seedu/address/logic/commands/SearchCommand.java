@@ -13,7 +13,7 @@ public class SearchCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose name and Date Of Birth "
             + "contain any of the specified keyowrds and displays them as a list with index number. \n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: Name and Date O Birth\n"
             + "Example: " + COMMAND_WORD + " alice 13.10.1997";
 
     private final SearchContainsKeywordsPredicate predicate;

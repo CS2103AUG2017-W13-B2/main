@@ -12,12 +12,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="259.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane prefHeight="112.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+    <VBox alignment="CENTER_LEFT" minHeight="105" prefHeight="112.0" prefWidth="125.0" GridPane.columnIndex="0">
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
@@ -30,20 +30,20 @@
         </Label>
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
       </HBox>
-      <FlowPane fx:id="tags" />
+      <FlowPane fx:id="tags" prefHeight="4.0" prefWidth="345.0" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
       <Label fx:id="date" styleClass="cell_small_label" text="\$dateOfBirth" />
       <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
     </VBox>
-    <rowConstraints>
-      <RowConstraints />
-    </rowConstraints>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
   </GridPane>
-  <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-          <image>
-            <Image url="/images/clock.png"/>
-          </image>
-  </ImageView>
+   <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+    <image>
+        <Image url=""/>
+    </image>
+   </ImageView>
 </HBox>

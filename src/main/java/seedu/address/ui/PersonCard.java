@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.io.File;
+
 import static seedu.address.model.font.FontSize.getassociatefxfontsizestring;
 
 import java.util.HashMap;
@@ -10,13 +12,18 @@ import com.google.common.eventbus.Subscribe;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+
 import seedu.address.commons.events.ui.ChangeFontSizeEvent;
 import seedu.address.commons.events.ui.ChangeTagColorEvent;
 import seedu.address.model.font.FontSize;
 import seedu.address.model.person.ReadOnlyPerson;
+
+//import javax.swing.text.html.ImageView;
 
 
 /**
@@ -57,6 +64,8 @@ public class PersonCard extends UiPart<Region> {
     private FlowPane tags;
     @FXML
     private Label remark;
+    @FXML
+    private ImageView image;
 
     public PersonCard(ReadOnlyPerson person, int displayedIndex) {
         super(FXML);
@@ -67,8 +76,43 @@ public class PersonCard extends UiPart<Region> {
         String currentFontSize = FontSize.getCurrentFontSizeLabel();
         setFontSize(currentFontSize);
         initTags(person, currentFontSize);
-    }
 
+    }
+    /**
+     * Adds a photo to a persons contact
+     */
+    public void assignImage(String FilePath) {
+
+        String url;
+
+        if (FilePath.equals("")) {
+            url = "/images/clock.png";
+            Image Display = new Image(url);
+            image.setImage(Display);
+        }
+        else {
+
+            if (FilePath.endsWith("g")) {
+
+                String home = System.getProperty("user.home");
+                java.nio.file.Path path = java.nio.file.Paths.get(home, "Desktop", FilePath);
+                url = path + "";
+                File file = new File(url);
+
+                Image Display = new Image(file.toURI().toString());
+                image.setImage(Display);
+            } else {
+
+                url = "src/main/resources/images/" + person.getImage().getFilePath() + ".jpg";
+                File stored = new File(url);
+                Image Display = new Image(stored.toURI().toString(), 100, 100,
+                        false, false);
+
+                image.setImage(Display);
+
+            }
+        }
+    }
 
     /**
      * Binds the individual UI elements to observe their respective {@code Person} properties
@@ -81,10 +125,12 @@ public class PersonCard extends UiPart<Region> {
         date.textProperty().bind(Bindings.convert(person.dateOfBirthProperty()));
         email.textProperty().bind(Bindings.convert(person.emailProperty()));
         remark.textProperty().bind(Bindings.convert(person.remarkProperty()));
+
         person.tagProperty().addListener((observable, oldValue, newValue) -> {
             tags.getChildren().clear();
             initTags(person, FontSize.getCurrentFontSizeLabel());
         });
+        assignImage(person.getImage().getFilePath());
     }
 
     @Subscribe
