@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -21,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FileImage;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -47,6 +49,7 @@ public class EditCommand extends UndoableCommand {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_DOB + "DATE_OF_BIRTH] "
             + "[" + PREFIX_REMARK + "REMARK] "
+            + "[" + PREFIX_IMAGE + "IMAGE"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -107,10 +110,11 @@ public class EditCommand extends UndoableCommand {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         DateOfBirth updatedDate = editPersonDescriptor.getDateOfBirth().orElse(personToEdit.getDateOfBirth());
         Remark updatedRemark = editPersonDescriptor.getRemark().orElse(personToEdit.getRemark());
+        FileImage updatedImage = editPersonDescriptor.getImage().orElse(personToEdit.getImage());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
-                          updatedDate, updatedRemark, updatedTags);
+                          updatedDate, updatedRemark, updatedImage, updatedTags);
     }
 
     @Override
@@ -145,6 +149,8 @@ public class EditCommand extends UndoableCommand {
 
         private Set<Tag> tags;
 
+        private FileImage image;
+
         public EditPersonDescriptor() {}
 
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
@@ -154,6 +160,7 @@ public class EditCommand extends UndoableCommand {
             this.address = toCopy.address;
             this.dateOfBirth = toCopy.dateOfBirth;
             this.remark = toCopy.remark;
+            this.image = toCopy.image;
             this.tags = toCopy.tags;
         }
 
@@ -162,7 +169,7 @@ public class EditCommand extends UndoableCommand {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address, this.dateOfBirth,
-                    this.remark, this.tags);
+                    this.remark, this.image, this.tags);
         }
 
         public void setName(Name name) {
@@ -175,11 +182,16 @@ public class EditCommand extends UndoableCommand {
         public void setDateOfBirth(DateOfBirth date) {
             this.dateOfBirth = date;
         }
+        public void setImage(FileImage image) {
+            this.image = image;
+        }
 
         public Optional<DateOfBirth> getDateOfBirth() {
             return Optional.ofNullable(dateOfBirth);
         }
-
+        public Optional<FileImage> getImage() {
+            return Optional.ofNullable(image);
+        }
         public void setPhone(Phone phone) {
             this.phone = phone;
         }
@@ -241,6 +253,7 @@ public class EditCommand extends UndoableCommand {
                     && getAddress().equals(e.getAddress())
                     && getDateOfBirth().equals(e.getDateOfBirth())
                     && getRemark().equals(e.getRemark())
+                    && getImage().equals(e.getImage())
                     && getTags().equals(e.getTags());
         }
     }

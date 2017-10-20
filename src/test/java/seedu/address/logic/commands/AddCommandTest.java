@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
@@ -114,6 +115,12 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             fail("This method should not be called.");
             return null;
+        }
+        @Override
+        public void addPhotoPerson(ReadOnlyPerson person, String FilePath, Index targetIndex)
+                throws PersonNotFoundException {
+            fail("This method should not be called.");
+
         }
 
         @Override

@@ -6,6 +6,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.FileImage;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -22,6 +23,7 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_IMAGE = "";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_DATE_OF_BIRTH = "13.10.1997";
     public static final String DEFAULT_REMARK = "Likes to drink coffee.";
@@ -38,8 +40,10 @@ public class PersonBuilder {
             DateOfBirth defaultDateOfBirth = new DateOfBirth(DEFAULT_DATE_OF_BIRTH);
             Remark defaultRemark = new Remark(DEFAULT_REMARK);
             Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
+            FileImage defaultImage = new FileImage(DEFAULT_IMAGE);
+
             this.person = new Person(defaultName, defaultPhone, defaultEmail,
-                    defaultAddress, defaultDateOfBirth, defaultRemark, defaultTags);
+                    defaultAddress, defaultDateOfBirth, defaultRemark, defaultImage, defaultTags);
         } catch (IllegalValueException ive) {
             throw new AssertionError("Default person's values are invalid.");
         }
@@ -114,10 +118,27 @@ public class PersonBuilder {
     /**
      * Sets the {@code DateOfBirth} of the {@code Person} that we are building.
      */
-    public PersonBuilder withDateOfBirth(String date) {
-        this.person.setDateOfBirth(new DateOfBirth(date));
+
+    public PersonBuilder withDateOfBirth(String Date) {
+        try {
+            this.person.setDateOfBirth(new DateOfBirth(Date));
+
+        } catch (IllegalValueException ive) {
+            throw new IllegalArgumentException("Unique birthday expected");
+        }
         return this;
     }
+    /**
+     * Sets the {@code FileImage} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withImage(String image) {
+        try {
+            this.person.setImage(new FileImage(image));
+
+        } catch (IllegalValueException ive) {
+            throw new IllegalArgumentException("Unique image expected");
+        }
+
 
     /**
      * Sets the {@code Remark} of the {@code Person} that we are building.
