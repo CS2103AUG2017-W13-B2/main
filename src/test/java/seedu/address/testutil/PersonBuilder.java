@@ -118,6 +118,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code DateOfBirth} of the {@code Person} that we are building.
      */
+
     public PersonBuilder withDateOfBirth(String Date) {
         try {
             this.person.setDateOfBirth(new DateOfBirth(Date));
@@ -137,8 +138,7 @@ public class PersonBuilder {
         } catch (IllegalValueException ive) {
             throw new IllegalArgumentException("Unique image expected");
         }
-        return this;
-    }
+
 
     /**
      * Sets the {@code Remark} of the {@code Person} that we are building.

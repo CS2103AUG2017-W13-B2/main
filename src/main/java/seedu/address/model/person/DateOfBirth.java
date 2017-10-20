@@ -1,7 +1,5 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -14,6 +12,7 @@ public class DateOfBirth {
      * Represents a Person's Date Of birth
      * Guarantees: immutable; is valid as declared in {@link #isValidBirthday(String)}
      */
+
 
     public static final String BIRTHDAY_VALIDATION_REGEX = "(0[1-9]|[1-9]|1[0-9]|2[0-9]|3[01])[///./-]"
             + "(0[1-9]|1[0-2]|[1-9])[///./-](19|20)[0-9][0-9]";
@@ -33,7 +32,9 @@ public class DateOfBirth {
         }
         String trimmedDate = Date.trim();
         this.date = trimmedDate;
+
     }
+
     @Override
     public String toString() {
         return date;

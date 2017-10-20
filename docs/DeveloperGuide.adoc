@@ -345,6 +345,135 @@ image::UndoRedoActivityDiagram.png[width="200"]
 **Cons:** Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things. +
 // end::undoredo[]
 
+=== login / logout mechanism
+
+The login / logout mechanism is a page which requires user to key in his username and password before he can use the addressbook. And Once he is logged in, there will be a automatically generated file named as "username + addressbook.xml" storing the information about his own addressbook.
+
+. It uses files whloginich stores the information of legal username and password pair to check whether the username and password key in by users are valid.
+
+image::login.png[width="800"]
+
+With the extra layer, the UiManager is calling login page before it calls the MainWindow:
+[source,java]
+----
+
+loginPage = new LoginPage(primaryStage, config, storage, prefs, logic, accPrefs);
+loginPage.show();
+//mainWindow = new MainWindow(primaryStage, config, storage, prefs, logic, accPrefs);
+//mainWindow.show(); //This should be called before creating other UI parts
+
+----
+
+The check mechanism is implemented in this way:
+[source,java]
+----
+private boolean checkValid(String username, String password) {
+        return accPrefs.getHm().get(username).equals(password);
+}
+----
+[NOTE]
+If user key in wrong user name or password, he will stuck at login page until he manages to get in.
+
+
+Read the account information from file and save them into a hashmap.
+[source,java]
+----
+public AccountsStorage setAccountMsg() throws DataConversionException, IOException {
+        String accountMsg = this.readAccountsPrefs(this.accountsPath).toString();
+        this.hm = makeMap(accountMsg);
+        return this;
+}
+
+----
+
+Logout is implemented using JavaFX.
+[source,java]
+----
+@FXML
+private void handleLogoutEvent() {
+    logger.info("Trying to logout");
+    this.hide();
+    this.releaseResources();
+    LoginPage loginPage = new LoginPage(primaryStage, config, storage, prefs, logic, accPrefs);
+    loginPage.show();
+}
+
+----
+
+image::logout.png[width="200"]
+
+==== Design Considerations
+
+**Aspect:** Implementation of `login / logout` feature +
+**Alternative 1 (current choice):** `login` is compulsory. User must login before he can use the addressbook  +
+**Pros:** Faster to implement. Not changing the structure of code. +
+**Cons:** Previous test cases need to be rewrote to get use to this new page. +
+**Alternative 2:** `login` is  optional. User can still use this addressbook without login. +
+**Pros:** Previous test cases can still be used. +
+**Cons:** Need to invoke `login page` from command level, which is very hard to implement. It changes a considerable
+part of structure of the whole code.
+
+---
+
+**Aspect:** User experiences  +
+**Alternative 1 (current choice):** `login` is compulsory. User must login before he can use the addressbook +
+**Pros:** Level of security is increased. Each user has a separate file to store addressbook. This software now support
+multiple users. +
+**Cons:** User needs an account to use this addressbook. Operation become one layer more complex. +
+**Alternative 2:** `login` is  optional. User can still use this addressbook without login.  +
+**Pros:** Multiple choices for users. More flexible. +
+**Cons:** The default page becomes public, anyone can read and modify it. +
+// end::undoredo[]
+
+---
+
+// tag::customizetagcolor[]
+=== Customize tag color mechanism
+Tag color can be changed by typing a `ChangeTagColorCommand` in the command line.
+[NOTE]
+User can change one or more than one tag to a different color in one command.
+
+The diagram below shows the hierarchy of ChangeTagColorCommand.
+
+image::ChangeTagColorCommandClassDiagram.png[width="600"]
+
+We use a new class `TagColor` to represent a color of a tag. For every `Tag` object, it has a new field `tagColor` of `TagColor` class which stores its associate tag color.
+
+[NOTE]
+When the tag color of a tag has not specified by the user yet, it is in default color blue. +
+Tags with the same tag name are of the same color.
+
+The diagram below shows the hierarchy of TagColor class.
+
+image::TagColorClassDiagram.png[width="400"]
+
+After every `ChangeTagColorCommand`, the tag and tag color pair will be stored in the storage file. The tag color in the UI is also updated accordingly. +
+
+The sequence diagram below shows how the `ChangeTagColorCommand` works.
+
+image::ChangeTagColorSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+**Aspect:** How to associate each tag with a tag color? +
+**Alternative 1 (current choice):** Create a new class `TagColor` and add a new field to `Tag` class. +
+**Pros:** The associate tag color is easy to get from a given tag. It is also very intuitive for each tag to have its tag color. +
+**Cons:** It is complicated to implement. +
+**Alternative 2:** Create a static hash map of all tag names(String) and their associate tag color(String) inside `Tag` class. +
+**Pros:** It is easy to implement. +
+**Cons:** Storing tag and tag color pairs inside `Tag` class violates the single responsibility principle of classes.
+
+---
+
+**Aspect:** Colors supported of `TagColor` +
+**Alternative 1 (current choice):** Developers specify a list of available colors for users. +
+**Pros:** It is easy to check whether the tag color name user typed in is valid. +
+**Cons:** The choices of color is limited. +
+**Alternative 2:** User can type in Hex Color Code as the color for tags. +
+**Pros:** User may not know what is Hex Color Code. +
+**Cons:** The colors available are various.
+// end::customizetagcolor[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
