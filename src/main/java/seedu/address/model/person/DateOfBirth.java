@@ -15,14 +15,15 @@ public class DateOfBirth {
      *
      * @throws IllegalValueException if given dateOfBirth string is invalid.
      */
-    public DateOfBirth(String Date) {
-        if (!Date.equals("")) {
-            String trimmedDate = Date.trim();
+    public DateOfBirth(String date) {
+        if (!date.equals("")) {
+            String trimmedDate = date.trim();
             this.date = trimmedDate;
         } else {
             this.date = "";
         }
     }
+  
     @Override
     public String toString() {
         return date;

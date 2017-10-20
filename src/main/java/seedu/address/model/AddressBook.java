@@ -176,11 +176,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         setTags(getUpdatedTagColorPair(modifyingTagList, tags.toSet(), color));
 
         updateTagColorInEveryPerson(modifyingTagList, color);
-
-        // Sync the updated tag list
-        syncMasterTagListWith(persons);
-
-        resetData(this);
     }
 
     /**

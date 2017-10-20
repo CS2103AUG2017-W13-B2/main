@@ -114,8 +114,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code DateOfBirth} of the {@code Person} that we are building.
      */
-    public PersonBuilder withDateOfBirth(String Date) {
-        this.person.setDateOfBirth(new DateOfBirth(Date));
+    public PersonBuilder withDateOfBirth(String date) {
+        this.person.setDateOfBirth(new DateOfBirth(date));
         return this;
     }
 

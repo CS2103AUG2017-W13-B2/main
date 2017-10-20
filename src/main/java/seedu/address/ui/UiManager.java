@@ -59,6 +59,7 @@ public class UiManager extends ComponentManager implements Ui {
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
+
         try {
             loginPage = new LoginPage(primaryStage, config, storage, prefs, logic, accPrefs);
             loginPage.show();

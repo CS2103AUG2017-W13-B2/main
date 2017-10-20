@@ -12,7 +12,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ChangeFontSizeEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.model.font.FontSize;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
@@ -32,6 +34,7 @@ public class ResultDisplay extends UiPart<Region> {
     public ResultDisplay() {
         super(FXML);
         resultDisplay.textProperty().bind(displayed);
+        setFontSize(FontSize.getCurrentFontSizeLabel());
         registerAsAnEventHandler(this);
     }
 
@@ -45,6 +48,16 @@ public class ResultDisplay extends UiPart<Region> {
         } else {
             setStyleToDefault();
         }
+    }
+
+    @Subscribe
+    private void handleChangeFontSizeEvent(ChangeFontSizeEvent event) {
+        setFontSize(event.getFontSize());
+    }
+
+    private void setFontSize(String fontSize) {
+        String fxFomatString = FontSize.getassociatefxfontsizestring(fontSize);
+        resultDisplay.setStyle(fxFomatString);
     }
 
     /**
