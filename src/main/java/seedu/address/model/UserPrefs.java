@@ -31,7 +31,7 @@ public class UserPrefs {
     }
 
     public void setGuiSettings(double width, double height, int x, int y) {
-        guiSettings = new GuiSettings(width, height, x, y, FontSize.FONT_SIZE_M_LABEL);
+        guiSettings = new GuiSettings(width, height, x, y, FontSize.getCurrentFontSizeLabel());
     }
 
     public String getAddressBookFilePath() {

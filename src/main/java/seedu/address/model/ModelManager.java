@@ -85,16 +85,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
     @Override
-    public synchronized void addPhotoPerson(ReadOnlyPerson person, String FilePath, Index targetIndex)
+    public synchronized void addPhotoPerson(ReadOnlyPerson person, String filePath, Index targetIndex)
             throws PersonNotFoundException,
             FileNotFoundException, IOException {
 
         try {
-            person.imageProperty().setValue( new FileImage(FilePath));
+            person.imageProperty().setValue(new FileImage(filePath));
             updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             indicateAddressBookChanged();
-        }
-        catch (IllegalValueException ive) {
+        } catch (IllegalValueException ive) {
             System.out.println("Error encountered");
         }
     }

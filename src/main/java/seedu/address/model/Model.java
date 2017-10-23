@@ -34,7 +34,7 @@ public interface Model {
     void addPerson(ReadOnlyPerson person) throws DuplicatePersonException;
 
     /** Adds photo to person */
-    void addPhotoPerson(ReadOnlyPerson person, String FilePath, Index targetIndex)
+    void addPhotoPerson(ReadOnlyPerson person, String filePath, Index targetIndex)
             throws PersonNotFoundException, FileNotFoundException,
             IOException;
 

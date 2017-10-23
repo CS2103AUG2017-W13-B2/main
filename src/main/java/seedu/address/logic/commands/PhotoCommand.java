@@ -34,11 +34,11 @@ public class PhotoCommand extends UndoableCommand {
     public static final String MESSAGE_FILE_PATH_NOT_FOUND = "Incorrect file path";
 
     private final Index targetIndex;
-    private  String FilePath;
+    private  String filePath;
 
-    public PhotoCommand(Index targetIndex, String FilePath) {
+    public PhotoCommand(Index targetIndex, String filePath) {
         this.targetIndex = targetIndex;
-        this.FilePath = FilePath;
+        this.filePath = filePath;
     }
 
     @Override
@@ -52,30 +52,30 @@ public class PhotoCommand extends UndoableCommand {
 
         ReadOnlyPerson personToAddPhoto = lastShownList.get(targetIndex.getZeroBased());
 
-        if (personToAddPhoto.getImage().getFilePath().equals("") && FilePath.equalsIgnoreCase("delete")) {
+        if (personToAddPhoto.getImage().getFilePath().equals("") && filePath.equalsIgnoreCase("delete")) {
             throw new CommandException(Messages.MESSAGE_NO_IMAGE_TO_DELETE);
         }
-        if (FilePath.equalsIgnoreCase("Delete")) {
-            FilePath = "";
+        if (filePath.equalsIgnoreCase("Delete")) {
+            filePath = "";
         }
 
         try {
             Person editedPerson = new Person(personToAddPhoto.getName(), personToAddPhoto.getPhone(),
                     personToAddPhoto.getEmail(),
                     personToAddPhoto.getAddress(), personToAddPhoto.getDateOfBirth(), personToAddPhoto.getRemark(),
-                    new FileImage(FilePath), personToAddPhoto.getTags());
+                    new FileImage(filePath), personToAddPhoto.getTags());
 
-            model.addPhotoPerson(personToAddPhoto, FilePath, targetIndex);
+            model.addPhotoPerson(personToAddPhoto, filePath, targetIndex);
             model.updatePerson(personToAddPhoto, editedPerson);
             ImageStorage imageStorage = new ImageStorage();
 
-            FilePath = (imageStorage.execute(FilePath,
+            filePath = (imageStorage.execute(filePath,
                     personToAddPhoto.getEmail().hashCode()));
 
             editedPerson = new Person(personToAddPhoto.getName(),
                     personToAddPhoto.getPhone(), personToAddPhoto.getEmail(),
                     personToAddPhoto.getAddress(), personToAddPhoto.getDateOfBirth(), personToAddPhoto.getRemark(),
-                    new FileImage(FilePath), personToAddPhoto.getTags());
+                    new FileImage(filePath), personToAddPhoto.getTags());
             model.updatePerson(personToAddPhoto, editedPerson);
 
         } catch (PersonNotFoundException pnfe) {
@@ -85,7 +85,7 @@ public class PhotoCommand extends UndoableCommand {
         } catch (IllegalValueException ive) {
             assert false : "Invalid input";
         }
-        if (FilePath.equals("")) {
+        if (filePath.equals("")) {
             return new CommandResult(String.format(DELETE_SUCCESS, personToAddPhoto));
         } else {
             return new CommandResult(String.format(MESSAGE_PHOTO_PERSON_SUCCESS, personToAddPhoto));

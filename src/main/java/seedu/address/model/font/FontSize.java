@@ -151,7 +151,6 @@ public class FontSize {
     /**
      * Get the associate fx format string for a give font size
      * @param inputFontSize
-     * @return
      */
     public static String getassociatefxfontsizestring(String inputFontSize) {
         assert (FontSize.isValidFontSize(inputFontSize));
@@ -181,6 +180,41 @@ public class FontSize {
             fxFontSizeString += "large;";
         }
         return fxFontSizeString;
+    }
+
+    /**
+     * Get associate image size from a given font size
+     * @param inputFontSize
+     * @return
+     */
+    public static int getAssociateImageSizeFromFontSize(String inputFontSize) {
+        assert (FontSize.isValidFontSize(inputFontSize));
+        int imageSize;
+        switch (inputFontSize) {
+        case FONT_SIZE_XS_LABEL:
+            imageSize = 15;
+            break;
+
+        case FONT_SIZE_S_LABEL:
+            imageSize = 20;
+            break;
+
+        case FONT_SIZE_M_LABEL:
+            imageSize = 25;
+            break;
+
+        case FONT_SIZE_L_LABEL:
+            imageSize = 30;
+            break;
+
+        case FONT_SIZE_XL_LABEL:
+            imageSize = 35;
+            break;
+
+        default:
+            imageSize = 25;
+        }
+        return imageSize;
     }
 
 }

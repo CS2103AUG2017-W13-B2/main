@@ -20,6 +20,7 @@ import javafx.scene.layout.Region;
 
 import seedu.address.commons.events.ui.ChangeFontSizeEvent;
 import seedu.address.commons.events.ui.ChangeTagColorEvent;
+import seedu.address.commons.events.ui.PersonPanelAddressPressedEvent;
 import seedu.address.model.font.FontSize;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -66,6 +67,17 @@ public class PersonCard extends UiPart<Region> {
     private Label remark;
     @FXML
     private ImageView image;
+    @FXML
+    private ImageView imagePhone;
+    @FXML
+    private ImageView imageEmail;
+    @FXML
+    private ImageView imageAddress;
+    @FXML
+    private ImageView imageBirth;
+    @FXML
+    private ImageView imageRemark;
+
 
     public PersonCard(ReadOnlyPerson person, int displayedIndex) {
         super(FXML);
@@ -75,40 +87,47 @@ public class PersonCard extends UiPart<Region> {
         registerAsAnEventHandler(this);
         String currentFontSize = FontSize.getCurrentFontSizeLabel();
         setFontSize(currentFontSize);
+        setFontSizeForAllImages(currentFontSize);
         initTags(person, currentFontSize);
-
     }
+
+    /**
+     * Get the label address
+     */
+    public Label getAddressLabel() {
+        return address;
+    }
+
     /**
      * Adds a photo to a persons contact
      */
-    public void assignImage(String FilePath) {
+    public void assignImage(String filePath) {
 
         String url;
 
-        if (FilePath.equals("")) {
+        if (filePath.equals("")) {
             url = "/images/clock.png";
-            Image Display = new Image(url);
-            image.setImage(Display);
-        }
-        else {
+            Image display = new Image(url);
+            image.setImage(display);
+        } else {
 
-            if (FilePath.endsWith("g")) {
+            if (filePath.endsWith("g")) {
 
                 String home = System.getProperty("user.home");
-                java.nio.file.Path path = java.nio.file.Paths.get(home, "Desktop", FilePath);
+                java.nio.file.Path path = java.nio.file.Paths.get(home, "Desktop", filePath);
                 url = path + "";
                 File file = new File(url);
 
-                Image Display = new Image(file.toURI().toString());
-                image.setImage(Display);
+                Image display = new Image(file.toURI().toString());
+                image.setImage(display);
             } else {
 
                 url = "src/main/resources/images/" + person.getImage().getFilePath() + ".jpg";
                 File stored = new File(url);
-                Image Display = new Image(stored.toURI().toString(), 100, 100,
+                Image display = new Image(stored.toURI().toString(), 100, 100,
                         false, false);
 
-                image.setImage(Display);
+                image.setImage(display);
 
             }
         }
@@ -125,7 +144,6 @@ public class PersonCard extends UiPart<Region> {
         date.textProperty().bind(Bindings.convert(person.dateOfBirthProperty()));
         email.textProperty().bind(Bindings.convert(person.emailProperty()));
         remark.textProperty().bind(Bindings.convert(person.remarkProperty()));
-
         person.tagProperty().addListener((observable, oldValue, newValue) -> {
             tags.getChildren().clear();
 
@@ -179,6 +197,7 @@ public class PersonCard extends UiPart<Region> {
     private void handleChangeFontSizeEvent(ChangeFontSizeEvent event) {
         initTags(person, event.getFontSize());
         setFontSize(event.getFontSize());
+        setFontSizeForAllImages(event.getFontSize());
     }
 
     private void setFontSize(String newFontSize) {
@@ -197,6 +216,25 @@ public class PersonCard extends UiPart<Region> {
         email.setStyle(fontSize);
         date.setStyle(fontSize);
         remark.setStyle(fontSize);
+    }
+
+    private void setFontSizeForAllImages(String fontSize) {
+        int newImageSize = FontSize.getAssociateImageSizeFromFontSize(fontSize);
+        imagePhone.setFitHeight(newImageSize);
+        imagePhone.setFitWidth(newImageSize);
+        imageAddress.setFitHeight(newImageSize);
+        imageAddress.setFitWidth(newImageSize);
+        imageEmail.setFitHeight(newImageSize);
+        imageEmail.setFitWidth(newImageSize);
+        imageBirth.setFitHeight(newImageSize);
+        imageBirth.setFitWidth(newImageSize);
+        imageRemark.setFitHeight(newImageSize);
+        imageRemark.setFitWidth(newImageSize);
+    }
+
+    @FXML
+    private void handleAddressClick() {
+        raise(new PersonPanelAddressPressedEvent(person.getName().fullName, address.getText()));
     }
 
 }

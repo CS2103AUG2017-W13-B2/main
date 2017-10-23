@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ChangeFontSizeEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.commons.events.ui.PersonPanelAddressPressedEvent;
 import seedu.address.model.font.FontSize;
 
 /**
@@ -58,6 +59,12 @@ public class ResultDisplay extends UiPart<Region> {
     private void setFontSize(String fontSize) {
         String fxFomatString = FontSize.getassociatefxfontsizestring(fontSize);
         resultDisplay.setStyle(fxFomatString);
+    }
+
+    @Subscribe
+    private void handlePersonPanelAddressPressedEvent(PersonPanelAddressPressedEvent event) {
+        Platform.runLater(() -> displayed.setValue("Showing address of " + event.getPersonName()
+                + ": " + event.getAddress()));
     }
 
     /**

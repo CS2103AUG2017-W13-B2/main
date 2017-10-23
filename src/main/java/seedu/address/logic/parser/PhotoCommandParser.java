@@ -25,14 +25,14 @@ public class PhotoCommandParser implements Parser<PhotoCommand> {
     public PhotoCommand parse(String args) throws ParseException {
 
         String trimmedArgs = args.trim();
-        String[] Keywords = trimmedArgs.split("\\s+");
+        String[] keywords = trimmedArgs.split("\\s+");
 
-        if (trimmedArgs.isEmpty() || Keywords.length != 2) {
+        if (trimmedArgs.isEmpty() || keywords.length != 2) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, PhotoCommand.MESSAGE_USAGE));
         }
         String home = System.getProperty("user.home");
-        String inputFile = Keywords[1];
+        String inputFile = keywords[1];
         java.nio.file.Path path = java.nio.file.Paths.get(home, "Desktop");
         String url = path + "";
         System.out.println(path + " " + inputFile);
@@ -44,8 +44,8 @@ public class PhotoCommandParser implements Parser<PhotoCommand> {
         }
 
         try {
-            Index index = ParserUtil.parseIndex(Keywords[0]);
-            return new PhotoCommand(index, (Keywords[1]));
+            Index index = ParserUtil.parseIndex(keywords[0]);
+            return new PhotoCommand(index, (keywords[1]));
         } catch (IllegalValueException ive) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, PhotoCommand.MESSAGE_USAGE));

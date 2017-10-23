@@ -37,7 +37,7 @@ public class TypicalPersons {
             .withDateOfBirth("13.10.1997")
             .withImage("")
             .withPhone("85355255")
-            .withTags("friends").build();
+            .withTags("friends", "family").build();
     public static final ReadOnlyPerson BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com")
@@ -53,7 +53,6 @@ public class TypicalPersons {
     public static final ReadOnlyPerson DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com")
             .withDateOfBirth("13.10.1997")
-            .withImage("")
             .withImage("")
             .withAddress("10th street").build();
     public static final ReadOnlyPerson ELLE = new PersonBuilder().withName("Elle Meyer")
@@ -131,6 +130,6 @@ public class TypicalPersons {
     }
 
     public static List<ReadOnlyPerson> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, LAKHOTIA, RANDOM));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

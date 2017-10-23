@@ -8,9 +8,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="600.0" maxWidth="1110.0" minHeight="400.0" minWidth="800.0" prefHeight="600.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <StackPane maxHeight="300.0" maxWidth="1110.0" minHeight="200.0" minWidth="800.0" prefHeight="300.0" prefWidth="1110.0" styleClass="pane-with-border" stylesheets="@DarkTheme.css">
+<VBox minHeight="400.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+      <StackPane VBox.vgrow="ALWAYS" styleClass="pane-with-border" stylesheets="@DarkTheme.css">
          <children>
             <TextField fx:id="username" alignment="CENTER" onKeyPressed="#handleKeyPress" promptText="username" StackPane.alignment="CENTER">
                <StackPane.margin>
@@ -24,12 +23,11 @@
             </PasswordField>
          </children>
       </StackPane>
-      <StackPane maxHeight="300.0" maxWidth="1110.0" minHeight="200.0" minWidth="800.0" prefHeight="300.0" prefWidth="1110.0" styleClass="pane-with-border">
+      <StackPane VBox.vgrow="ALWAYS" styleClass="pane-with-border">
          <children>
             <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#handleLoginEvent" prefHeight="70.0" prefWidth="235.0" text="Login" textAlignment="CENTER" />
          </children>
       </StackPane>
-   </children>
    <stylesheets>
       <URL value="@DarkTheme.css" />
       <URL value="@Extensions.css" />

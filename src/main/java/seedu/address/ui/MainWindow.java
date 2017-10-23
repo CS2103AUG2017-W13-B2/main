@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -228,10 +229,11 @@ public class MainWindow extends UiPart<Region> {
      * Method for handle logout event.
      */
     @FXML
-    private void handleLogoutEvent() {
+    private void handleLogoutEvent() throws IOException {
         logger.info("Trying to logout");
         this.hide();
         this.releaseResources();
+        prefs.updateLastUsedGuiSetting(this.getCurrentGuiSetting());
         LoginPage loginPage = new LoginPage(primaryStage, config, storage, prefs, logic, accPrefs);
         loginPage.show();
     }
