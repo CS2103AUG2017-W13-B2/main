@@ -8,7 +8,7 @@ https://ci.appveyor.com/project/RonakLakhotia/main/branch/master[image:https://c
 https://coveralls.io/github/RonakLakhotia/addressbook-level4[image:https://coveralls.io/repos/github/CS2103AUG2017-W13-B2/main/badge.svg[Coverage Status]]
 https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui1.png[width="600"]
 ifdef::env-github[]
 endif::[]
 

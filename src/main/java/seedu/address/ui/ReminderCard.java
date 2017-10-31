@@ -2,8 +2,6 @@ package seedu.address.ui;
 //@@author RonakLakhotia
 import static seedu.address.model.font.FontSize.getAssociateFxFontSizeString;
 
-import java.io.File;
-
 import java.util.Random;
 
 import com.google.common.eventbus.Subscribe;
@@ -11,8 +9,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -53,8 +49,6 @@ public class ReminderCard extends UiPart<Region> {
     private Label priority;
     @FXML
     private Label date;
-    @FXML
-    private ImageView image;
 
 
 
@@ -77,18 +71,6 @@ public class ReminderCard extends UiPart<Region> {
         about.textProperty().bind(Bindings.convert(reminder.detailsProperty()));
         priority.textProperty().bind(Bindings.convert(reminder.priorityProperty()));
         date.textProperty().bind(Bindings.convert(reminder.dueDateProperty()));
-        String url = "";
-        if (reminder.getPriority().toString().equalsIgnoreCase("Priority Level: High")) {
-            url = "src/main/resources/images/high.png";
-        } else if (reminder.getPriority().toString().equalsIgnoreCase("Priority Level: Medium")) {
-            url = "src/main/resources/images/medium.png";
-        } else {
-            url = "src/main/resources/images/low.png";
-        }
-        File file = new File(url);
-        Image display = new Image(file.toURI().toString(), 100,
-                100, false, false);
-        image.setImage(display);
 
     }
 

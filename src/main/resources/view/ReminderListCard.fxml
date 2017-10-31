@@ -43,19 +43,6 @@
                         <Insets top="5.0" />
                     </padding>
                 </VBox>
-                <!-- @@author RonakLakhotia -->
-                <ImageView fx:id="image" fitHeight="100.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="/images/clock.png" />
-                    </image>
-                    <HBox.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0" />
-                    </HBox.margin>
-                </ImageView>
-                <!-- @@author  -->
-                <padding>
-                    <Insets top="5.0" />
-                </padding>
 
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5">
