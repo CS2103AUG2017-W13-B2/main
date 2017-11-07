@@ -494,7 +494,7 @@ A user can go back using the back button.
 
 // tag::customizetagcolor[]
 === Customize tag color mechanism
-Tag color can be changed by typing a `ChangeTagColorCommand` in the command line.
+Tag color can be changed by giving a `ChangeTagColorCommand`.
 [NOTE]
 User can change one or more than one tag to a different color in one command.
 
@@ -505,15 +505,67 @@ image::ChangeTagColorCommandClassDiagram.png[width="600"]
 We use a new class `TagColor` to represent a color of a tag. For every `Tag` object, it has a new field `tagColor` of `TagColor` class which stores its associate tag color.
 
 [NOTE]
-When the tag color of a tag has not specified by the user yet, it is in default color blue. +
+When the tag color of a tag has not specified by the user yet, it is in default color orange. +
 Tags with the same tag name are of the same color.
 
 The diagram below shows the hierarchy of TagColor class.
 
 image::TagColorClassDiagram.png[width="400"]
 
-After every `ChangeTagColorCommand`, the tag and tag color pair will be stored in the storage file. The tag color in the UI is also updated accordingly. +
+After every `ChangeTagColorCommand`, the tag and tag color pair will be stored in the storage file.
+An `ChangeTagColorEvent` is raised so that the tag color in the UI is also updated accordingly. +
+The structure in .xml storage file is like the following:
+[source,css]
+----
+<persons>
+    <name>John Doe</name>
+    <phone>98765432</phone>
+    <email>johnd@example.com</email>
+    <tagged>
+        <name>friends</name>
+        <color>orange</color>
+    </tagged>
+</persons>
+<tags>
+    <name>friends</name>
+    <color>orange</color>
+</tags>
+----
+The following code shows the execution of `ChangeTagColorCommand`
+[source,java]
+----
+protected CommandResult executeUndoableCommand() throws CommandException {
+        // Store all non existing tags
+        Set<Tag> nonExistingTagList = new HashSet<>();
 
+        // Check whether tags in the tagList are not existing tags
+        for (Tag tag: tagList) {
+            if (!isExistingTagName(tag)) {
+                nonExistingTagList.add(tag);
+            }
+        }
+
+        // There are tags that are not existing tags
+        if (nonExistingTagList.size() != 0) {
+            throw new CommandException(String.format(MESSAGE_NOT_EXISTING_TAGS, nonExistingTagList));
+        }
+
+        // Check whether the input tag color is a valid color name
+        if (!TagColor.isValidTagColorName(color.tagColorName)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_COLOR, color));
+        }
+
+        try {
+            model.updateTagColorPair(tagList, color);
+        } catch (IllegalValueException e) {
+            throw new CommandException(MESSAGE_FAILED);
+        }
+
+        EventsCenter.getInstance().post(new ChangeTagColorEvent(color.tagColorName));
+
+        return new CommandResult(String.format(MESSAGE_CHANGE_TAG_COLOR_SUCCESS, tagList, color.tagColorName));
+    }
+----
 The sequence diagram below shows how the `ChangeTagColorCommand` works.
 
 image::ChangeTagColorSequenceDiagram.png[width="800"]
@@ -538,6 +590,80 @@ image::ChangeTagColorSequenceDiagram.png[width="800"]
 **Pros:** User may not know what is Hex Color Code. +
 **Cons:** The colors available are various.
 // end::customizetagcolor[]
+
+
+// tag::customizeFontSize[]
+=== Customize font size mechanism
+The font size of the application can be changed via `ChangeFontSizeCommand` or by pressing the '+' or '-' button on the right top corner.
+
+A new class FontSize is used to represent a font size.
+
+The following diagram shows the hierarchy of FontSize class
+
+image::FontSizeClassDiagram.png[width="500"]
+
+[NOTE]
+Only five font sizes are supported: XS, S, M, L, XL
+
+User can change the font size by giving the name of the exact font size which they want the app to be changed to. E.g. `fs xl`. Or they can
+type in "+" or "-" symbol to increase or decrease the current font size. E.g. `fs +` +
+
+Pressing the "+" button equals to giving `fs +` command and similarly for "-" button. +
+
+If the current font size is the largest one and the user still gives `fs +` command or presses the "+" button to increase font sizes, a warning
+will be shown on the display box saying "The current font size is the largest one." Similarly for decreasing the font size.
+
+When a `ChangeFontSizeCommand` is made, a `ChangeFontSizeEvent` is raised. This event will be received by UI components such as
+PersonCard. So that the font size in UI components will be updated accordingly. The following code shows how the event is handled
+in the PersonCard.java.
+
+[source,java]
+----
+@Subscribe
+private void handleChangeFontSizeEvent(ChangeFontSizeEvent event) {
+    String newFontSize = event.getFontSize();
+    initTags(person, newFontSize);
+    setFontSize(newFontSize);
+    setSizeForAllImagesAccordingToFontSize(newFontSize);
+    setSizeForPhotosAccordingToFontSize(newFontSize);
+}
+----
+
+Noted that not only the font size is changed, the size of images and icons also are enlarged or reduced according to the
+new font size. +
+
+When the user exits the app, the current font size will be stored in the preferences.json in the following format.
+
+[source,json]
+----
+{
+  "guiSettings" : {
+    "windowWidth" : 781.0,
+    "windowHeight" : 600.0,
+    "windowCoordinates" : {
+      "x" : 426,
+      "y" : 111
+    },
+    "fontSize" : "m",
+    "theme" : "bright"
+  },
+  "addressBookFilePath" : "data/addressbook.xml",
+  "addressBookName" : "MyAddressBook"
+}
+----
+==== Design considerations
+
+**Aspect:** How to represent a font size? +
+**Alternative 1 (current choice):** Create a new class `FontSize`. +
+**Pros:** The methods associated with font size can be encapsulated inside one class. +
+**Cons:** It increases coupling as a lot of UI components need to call the method of `FontSize` class. +
+**Alternative 2:** Create a new field of `String` type in `GuiSetting` class. +
+**Pros:** It is easy to implement. +
+**Cons:** The methods associated with font size will appear repeatedly in many UI component classes.
+
+---
+
+// end::customizeFontSize[]
 
 // tag::deletepersontag[]
 === Deleting a person's tag mechanism

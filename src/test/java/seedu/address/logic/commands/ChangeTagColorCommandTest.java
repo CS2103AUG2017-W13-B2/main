@@ -1,9 +1,10 @@
+//@@author ChenXiaoman
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAGLIST;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAGLIST;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAGLIST_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COLOR_NAME_RED;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -23,9 +24,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagColor;
-//@@author ChenXiaoman
+
 /**
- * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ChangeTagColorCommand}.
  */
 public class ChangeTagColorCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -33,13 +34,13 @@ public class ChangeTagColorCommandTest {
     @Test
     public void executeChangeTagColorOfATagListSuccess() throws Exception {
         TagColor tagColor = new TagColor(VALID_TAG_COLOR_NAME_RED);
-        ChangeTagColorCommand changeTagColorCommand = prepareCommand(VALID_TAGLIST, VALID_TAG_COLOR_NAME_RED);
+        ChangeTagColorCommand changeTagColorCommand = prepareCommand(VALID_TAGLIST_1, VALID_TAG_COLOR_NAME_RED);
 
         String expectedMessage = String.format(ChangeTagColorCommand.MESSAGE_CHANGE_TAG_COLOR_SUCCESS,
-                VALID_TAGLIST, VALID_TAG_COLOR_NAME_RED);
+                VALID_TAGLIST_1, VALID_TAG_COLOR_NAME_RED);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateTagColorPair(VALID_TAGLIST, tagColor);
+        expectedModel.updateTagColorPair(VALID_TAGLIST_1, tagColor);
 
         assertCommandSuccess(changeTagColorCommand, model, expectedMessage, expectedModel);
     }

@@ -1,5 +1,5 @@
 # RonakLakhotia
-###### \java\seedu\address\logic\commands\AddReminderTest.java
+###### /java/seedu/address/logic/commands/AddReminderTest.java
 ``` java
 public class AddReminderTest {
 
@@ -180,7 +180,7 @@ public class AddReminderTest {
 
 }
 ```
-###### \java\seedu\address\logic\commands\ChangeReminderDescriptorTest.java
+###### /java/seedu/address/logic/commands/ChangeReminderDescriptorTest.java
 ``` java
 public class ChangeReminderDescriptorTest {
 
@@ -212,7 +212,7 @@ public class ChangeReminderDescriptorTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\FaceBookCommandTest.java
+###### /java/seedu/address/logic/commands/FaceBookCommandTest.java
 ``` java
 public class FaceBookCommandTest {
 
@@ -299,7 +299,7 @@ public class FaceBookCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\PhotoCommandTest.java
+###### /java/seedu/address/logic/commands/PhotoCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code PhotoCommand}.
@@ -368,7 +368,7 @@ public class PhotoCommandTest {
 
 }
 ```
-###### \java\seedu\address\logic\commands\SearchCommandTest.java
+###### /java/seedu/address/logic/commands/SearchCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
@@ -443,7 +443,7 @@ public class SearchCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\AddReminderParserTest.java
+###### /java/seedu/address/logic/parser/AddReminderParserTest.java
 ``` java
 public class AddReminderParserTest {
     private AddReminderParser parser = new AddReminderParser();
@@ -520,7 +520,7 @@ public class AddReminderParserTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\ChangeReminderCommandParserTest.java
+###### /java/seedu/address/logic/parser/ChangeReminderCommandParserTest.java
 ``` java
 public class ChangeReminderCommandParserTest {
 
@@ -613,7 +613,7 @@ public class ChangeReminderCommandParserTest {
 
 }
 ```
-###### \java\seedu\address\logic\parser\FaceBookCommandParserTest.java
+###### /java/seedu/address/logic/parser/FaceBookCommandParserTest.java
 ``` java
 public class FaceBookCommandParserTest {
 
@@ -646,7 +646,7 @@ public class FaceBookCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\SearchCommandParserTest.java
+###### /java/seedu/address/logic/parser/SearchCommandParserTest.java
 ``` java
 public class SearchCommandParserTest {
 
@@ -671,7 +671,7 @@ public class SearchCommandParserTest {
 
 }
 ```
-###### \java\systemtests\PhotoCommandSystemTest.java
+###### /java/systemtests/PhotoCommandSystemTest.java
 ``` java
 public class PhotoCommandSystemTest extends AddressBookSystemTest {
 
@@ -832,7 +832,7 @@ public class PhotoCommandSystemTest extends AddressBookSystemTest {
 }
 
 ```
-###### \java\systemtests\SearchCommandSystemTest.java
+###### /java/systemtests/SearchCommandSystemTest.java
 ``` java
 public class SearchCommandSystemTest extends AddressBookSystemTest {
 

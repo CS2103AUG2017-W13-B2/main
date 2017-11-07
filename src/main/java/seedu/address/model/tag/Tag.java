@@ -1,10 +1,10 @@
+//@@author ChenXiaoman
 package seedu.address.model.tag;
 
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
-//@@author ChenXiaoman
 /**
  * Represents a Tag of a person.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}

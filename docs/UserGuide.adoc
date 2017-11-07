@@ -337,7 +337,7 @@ Users now can register new valid accounts.
 
 The new account's username must be different from all previous ones.
 
-
+// tag::customizetagcolor[]
 === Customize tags' color : `color` SINCE V1.2
 
 Change the color of one or more than one tags. +
@@ -361,26 +361,7 @@ The `color` command fails as `invalid_color` is not supported.
 * `color t/not_existing_tag c/yellow` +
 The `color` command fails as `not_existing_tag` does not exit in current database.
 
-=== Change font size : `fs` SINCE V1.2
-
-Change the font size of the entire application +
-Format: `fs [FONT SIZE]` or `fs [+/-]`
-****
-* The available font sizes are: xs(extra small), s(small), m(medium), l(large), xl(extra large).
-* The default font size is m.
-* The font size changed will be auto stored.
-* You can increase (or decrease) the font size by pressing the "+" (or "-") button in the right top corner.
-****
-
-Examples:
-
-* `fs xl`
-
-* `fs s`
-
-* `fs +`
-
-* `fs -` +
+// end::customizetagcolor[]
 
 // tag::addphoto[]
 === Add Photo to contacts : `photo` SINCE V1.2 +
@@ -412,6 +393,30 @@ this will delete the photo attached with the person at index 1.
 ****
 // end::addphoto[]
 
+<<<<<<< HEAD
+// tag::customizefontsize[]
+=== Change font size : `fs` SINCE V1.3
+
+Change the font size of the entire application +
+Format: `fs [FONT SIZE]` or `fs [+/-]`
+****
+* The available font sizes are: xs(extra small), s(small), m(medium), l(large), xl(extra large).
+* The default font size is m.
+* The font size changed will be auto stored.
+* You can increase (or decrease) the font size by pressing the "+" (or "-") button in the right top corner.
+****
+
+Examples:
+
+* `fs xl`
+
+* `fs s`
+
+* `fs +`
+
+* `fs -` +
+// end::customizefontsize[]
+
 // tag::facebook[]
 === FaceBook Integration SINCE V1.3
 
@@ -432,10 +437,10 @@ If the person does not have a facebook account or the username is not entered in
 image::facebook.png[width="790"]
 
 // end::facebook[]
-
+// tag::map[]
 === Show address of a person : `map` (SINCE V1.3)
 
-Shows the address of a person in Google Map in the browser panel.+
+Shows the address of a person in Google Map in the browser panel. +
 
 Format: `map INDEX`
 ****
@@ -451,6 +456,9 @@ Examples:
 
 * `map 2`
 
+// end::map[]
+
+// tag::theme[]
 === Change the theme : `theme` (SINCE V1.4)
 
 Changes the theme of entire application. +
@@ -467,7 +475,7 @@ Examples:
 * `theme dark`
 
 * `theme bright`
-
+// end::theme[]
 
 === Reminders Panel (SINCE V1.4) +
 
@@ -498,6 +506,10 @@ Auto-complete your commands by providing suggestions. +
 image::autocompletion.png[]
 
 Type any letters to get some suggestions on what command to use.
+
+=== Check whether the command is valid while the user is typing
+
+The result display panel will show whether the command is valid while the user is typing.
 
 === Clearing all entries : `clear`
 

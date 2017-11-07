@@ -1,7 +1,8 @@
+//@@author ChenXiaoman
 package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
-//@@author ChenXiaoman
+
 /**
  * Indicates a request to change the font size of the application
  */

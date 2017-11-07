@@ -85,14 +85,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate);
-
+    //@@author ChenXiaoman
     /**
      * Update color of tags
      * @param tagList
      * @param color
      */
     void updateTagColorPair(Set<Tag> tagList, TagColor color) throws IllegalValueException;
-
+    //@@author
     /**
      * Updates the filter of the filtered reminder list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

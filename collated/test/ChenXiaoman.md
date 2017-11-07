@@ -1,8 +1,28 @@
 # ChenXiaoman
-###### \java\seedu\address\logic\commands\ChangeFontSizeCommandTest.java
+###### /java/seedu/address/logic/commands/ChangeFontSizeCommandTest.java
 ``` java
+package seedu.address.logic.commands;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FONT_SIZE;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import org.junit.Test;
+
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.font.FontSize;
+
 /**
- * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ChangeFontSizeCommand}.
  */
 public class ChangeFontSizeCommandTest {
     private UserPrefs userPrefs = new UserPrefs();
@@ -70,10 +90,36 @@ public class ChangeFontSizeCommandTest {
 
 }
 ```
-###### \java\seedu\address\logic\commands\ChangeTagColorCommandTest.java
+###### /java/seedu/address/logic/commands/ChangeTagColorCommandTest.java
 ``` java
+package seedu.address.logic.commands;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAGLIST;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAGLIST_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COLOR_NAME_RED;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Test;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagColor;
+
 /**
- * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ChangeTagColorCommand}.
  */
 public class ChangeTagColorCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -81,13 +127,13 @@ public class ChangeTagColorCommandTest {
     @Test
     public void executeChangeTagColorOfATagListSuccess() throws Exception {
         TagColor tagColor = new TagColor(VALID_TAG_COLOR_NAME_RED);
-        ChangeTagColorCommand changeTagColorCommand = prepareCommand(VALID_TAGLIST, VALID_TAG_COLOR_NAME_RED);
+        ChangeTagColorCommand changeTagColorCommand = prepareCommand(VALID_TAGLIST_1, VALID_TAG_COLOR_NAME_RED);
 
         String expectedMessage = String.format(ChangeTagColorCommand.MESSAGE_CHANGE_TAG_COLOR_SUCCESS,
-                VALID_TAGLIST, VALID_TAG_COLOR_NAME_RED);
+                VALID_TAGLIST_1, VALID_TAG_COLOR_NAME_RED);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateTagColorPair(VALID_TAGLIST, tagColor);
+        expectedModel.updateTagColorPair(VALID_TAGLIST_1, tagColor);
 
         assertCommandSuccess(changeTagColorCommand, model, expectedMessage, expectedModel);
     }
@@ -148,10 +194,10 @@ public class ChangeTagColorCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\ChangeThemeCommandTest.java
+###### /java/seedu/address/logic/commands/ChangeThemeCommandTest.java
 ``` java
 /**
- * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ChangeThemeCommand}.
  */
 public class ChangeThemeCommandTest {
 
@@ -226,10 +272,34 @@ public class ChangeThemeCommandTest {
 
 }
 ```
-###### \java\seedu\address\logic\commands\MapCommandTest.java
+###### /java/seedu/address/logic/commands/MapCommandTest.java
 ``` java
+package seedu.address.logic.commands;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.ReadOnlyPerson;
+
 /**
- * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
+ * Contains integration tests (interaction with the Model) for {@code MapCommand}.
  */
 public class MapCommandTest {
 
@@ -241,9 +311,38 @@ public class MapCommandTest {
     }
 
     @Test
+    public void execute_validIndexUnfilteredList_success() {
+        Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
+
+        assertExecutionSuccess(INDEX_FIRST_PERSON);
+        assertExecutionSuccess(INDEX_THIRD_PERSON);
+        assertExecutionSuccess(lastPersonIndex);
+    }
+
+    @Test
     public void execute_invalidIndexUnfilteredList_failure() {
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         MapCommand mapCommand = prepareCommand(outOfBoundsIndex);
+        assertCommandFailure(mapCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        showFirstPersonOnly(model);
+
+        assertExecutionSuccess(INDEX_FIRST_PERSON);
+    }
+
+    @Test
+    public void execute_invalidIndexFilteredList_failure() {
+        showFirstPersonOnly(model);
+
+        Index outOfBoundsIndex = INDEX_SECOND_PERSON;
+        MapCommand mapCommand = prepareCommand(outOfBoundsIndex);
+
+        // ensures that outOfBoundIndex is still in bounds of address book list
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+
         assertCommandFailure(mapCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
@@ -270,6 +369,18 @@ public class MapCommandTest {
     }
 
     /**
+     * Executes a {@code MapCommand} with the given {@code index}, and checks message showing is expected message
+     */
+    private void assertExecutionSuccess(Index index) {
+        MapCommand mapCommand = prepareCommand(index);
+        ReadOnlyPerson readOnlyPerson = model.getFilteredPersonList()
+                .get(index.getZeroBased());
+        String expectedResultMessage = String.format(
+                MapCommand.MESSAGE_SELECT_PERSON_SUCCESS, readOnlyPerson.getName());
+        assertCommandSuccess(mapCommand, model, expectedResultMessage, model);
+    }
+
+    /**
      * Returns a {@code MapCommand} with parameters {@code index}.
      */
     private MapCommand prepareCommand(Index index) {
@@ -281,7 +392,7 @@ public class MapCommandTest {
 
 }
 ```
-###### \java\seedu\address\logic\parser\ChangeFontSizeCommandParserTest.java
+###### /java/seedu/address/logic/parser/ChangeFontSizeCommandParserTest.java
 ``` java
 public class ChangeFontSizeCommandParserTest {
     private ChangeFontSizeCommandParser parser = new ChangeFontSizeCommandParser();
@@ -315,7 +426,7 @@ public class ChangeFontSizeCommandParserTest {
 
 }
 ```
-###### \java\seedu\address\logic\parser\ChangeTagColorCommandParserTest.java
+###### /java/seedu/address/logic/parser/ChangeTagColorCommandParserTest.java
 ``` java
 public class ChangeTagColorCommandParserTest {
     private ChangeTagColorCommandParser parser = new ChangeTagColorCommandParser();
@@ -349,7 +460,7 @@ public class ChangeTagColorCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\ChangeThemeCommandParserTest.java
+###### /java/seedu/address/logic/parser/ChangeThemeCommandParserTest.java
 ``` java
 public class ChangeThemeCommandParserTest {
 
@@ -374,7 +485,7 @@ public class ChangeThemeCommandParserTest {
 
 }
 ```
-###### \java\seedu\address\logic\parser\MapCommandParserTest.java
+###### /java/seedu/address/logic/parser/MapCommandParserTest.java
 ``` java
 public class MapCommandParserTest {
     private MapCommandParser parser = new MapCommandParser();
@@ -390,7 +501,7 @@ public class MapCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\model\font\FontSizeTest.java
+###### /java/seedu/address/model/font/FontSizeTest.java
 ``` java
     @Test
     public void isValidFontSize() throws Exception {
@@ -401,7 +512,7 @@ public class MapCommandParserTest {
 
 }
 ```
-###### \java\seedu\address\model\tag\TagColorTest.java
+###### /java/seedu/address/model/tag/TagColorTest.java
 ``` java
 public class TagColorTest {
 
@@ -419,7 +530,7 @@ public class TagColorTest {
 
 }
 ```
-###### \java\seedu\address\model\theme\ThemeTest.java
+###### /java/seedu/address/model/theme/ThemeTest.java
 ``` java
 public class ThemeTest {
     @Test
@@ -435,5 +546,548 @@ public class ThemeTest {
     }
 
 
+}
+```
+###### /java/systemtests/ChangeFontSizeCommandSystemTest.java
+``` java
+package systemtests;
+
+import org.junit.Test;
+
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.ChangeFontSizeCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.font.FontSize;
+
+public class ChangeFontSizeCommandSystemTest extends AddressBookSystemTest {
+    private Model modelXs;
+    private Model modelS;
+    private Model modelM;
+    private Model modelL;
+    private Model modelXl;
+
+    @Test
+    public void changeFontSize() throws Exception {
+        prepareExpectedModels();
+
+        /* Case: change the font size to L -> font size changed */
+        String changeFontSizeCommand = ChangeFontSizeCommand.COMMAND_WORD + " l";
+        String expectedMessage = ChangeFontSizeCommand.MESSAGE_SUCCESS + "l.";
+        assertCommandSuccess(changeFontSizeCommand, modelL, expectedMessage);
+
+        /* Case: undo changing font size  -> font size changes back to default M */
+        String command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, modelM, expectedResultMessage);
+
+        /* Case: undo changing font size  -> font size changes back to L again */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, modelL, expectedResultMessage);
+
+        /* Case: increase font size -> font size increases to XL */
+        changeFontSizeCommand = ChangeFontSizeCommand.COMMAND_WORD + " +";
+        expectedMessage = ChangeFontSizeCommand.MESSAGE_SUCCESS + "xl.";
+        assertCommandSuccess(changeFontSizeCommand, modelXl, expectedMessage);
+
+        /* Case: increase font size when the current font size is the largest one -> rejected */
+        changeFontSizeCommand = ChangeFontSizeCommand.COMMAND_WORD + " +";
+        assertCommandFailure(changeFontSizeCommand, FontSize.MESSAGE_FONT_SIZE_IS_LARGEST);
+
+        /* Case: change the font size to S -> font size changed */
+        changeFontSizeCommand = ChangeFontSizeCommand.COMMAND_WORD + " s";
+        expectedMessage = ChangeFontSizeCommand.MESSAGE_SUCCESS + "s.";
+        assertCommandSuccess(changeFontSizeCommand, modelS, expectedMessage);
+
+        /* Case: decrease font size -> font size decreases to XS */
+        changeFontSizeCommand = ChangeFontSizeCommand.COMMAND_WORD + " -";
+        expectedMessage = ChangeFontSizeCommand.MESSAGE_SUCCESS + "xs.";
+        assertCommandSuccess(changeFontSizeCommand, modelXs, expectedMessage);
+
+        /* Case: decrease font size when the current font size is the smallest one -> rejected */
+        changeFontSizeCommand = ChangeFontSizeCommand.COMMAND_WORD + " -";
+        assertCommandFailure(changeFontSizeCommand, FontSize.MESSAGE_FONT_SIZE_IS_SMALLEST);
+
+        /* Case: input font size name is invalid -> rejected */
+        changeFontSizeCommand = ChangeFontSizeCommand.COMMAND_WORD + " " + "invalid_font_size_name";
+        assertCommandFailure(changeFontSizeCommand, FontSize.MESSAGE_FONT_SIZE_CONSTRAINTS);
+
+        /* Case: input font size name is null -> rejected */
+        changeFontSizeCommand = ChangeFontSizeCommand.COMMAND_WORD + " ";
+        assertCommandFailure(changeFontSizeCommand, FontSize.MESSAGE_FONT_SIZE_CONSTRAINTS);
+
+    }
+
+    /**
+     * Performs the same verification as {@code assertCommandSuccess(String, ReadOnlyPerson)} except that the result
+     * display box displays {@code expectedResultMessage} and the model related components equal to
+     * {@code expectedModel}.
+     */
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+        executeCommand(command);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertSelectedCardUnchanged();
+        assertCommandBoxShowsDefaultStyle();
+    }
+
+    /**
+     * Executes {@code command} and verifies that the command box displays {@code command}, the result display
+     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
+     * error style.
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandFailure(String command, String expectedResultMessage) {
+        Model expectedModel = getModel();
+
+        executeCommand(command);
+        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
+        assertSelectedCardUnchanged();
+        assertCommandBoxShowsErrorStyle();
+        assertStatusBarUnchanged();
+    }
+
+    /**
+     * Generates five different models with five font sizes
+     */
+    private void prepareExpectedModels() {
+
+        // Generate five models with five font size symbols
+        modelXs = prepareExpectedModelGivenFontSize("xs");
+        modelS = prepareExpectedModelGivenFontSize("s");
+        modelM = prepareExpectedModelGivenFontSize("m");
+        modelL = prepareExpectedModelGivenFontSize("l");
+        modelXl = prepareExpectedModelGivenFontSize("xl");
+
+    }
+
+    /**
+     * Generate models with different font size
+     * @param fontSize
+     * @return new model with given font size
+     */
+    private Model prepareExpectedModelGivenFontSize(String fontSize) {
+        assert (FontSize.isValidFontSize(fontSize));
+
+        // Generate new user preference with given font size
+        UserPrefs newUserPrefs = new UserPrefs();
+        GuiSettings guiSettings = newUserPrefs.getGuiSettings();
+        newUserPrefs.setGuiSettings(
+                guiSettings.getWindowHeight(),
+                guiSettings.getWindowWidth(),
+                guiSettings.getWindowCoordinates().x,
+                guiSettings.getWindowCoordinates().y,
+                fontSize, guiSettings.getTheme());
+
+        return new ModelManager(new AddressBook(getModel().getAddressBook()), newUserPrefs);
+    }
+
+}
+```
+###### /java/systemtests/ChangeTagColorCommandSystemTest.java
+``` java
+package systemtests;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.ChangeTagColorCommand.MESSAGE_CHANGE_TAG_COLOR_SUCCESS;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAGLIST;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAGLIST_2;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_2;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_COLOR_NAME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAGLIST_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAGLIST_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COLOR_NAME_RED;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_COLOR_NAME_YELLOW;
+
+import org.junit.Test;
+
+import seedu.address.logic.commands.ChangeTagColorCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagColor;
+
+public class ChangeTagColorCommandSystemTest extends AddressBookSystemTest {
+    @Test
+    public void changeTagColor() throws Exception {
+        Model model = getModel();
+
+        /* Case: change the tag color of one tag to one color -> tag color changed */
+        String changeTagColorCommand = ChangeTagColorCommand.COMMAND_WORD + " t/friends c/red";
+        String expectedMessage = String.format(MESSAGE_CHANGE_TAG_COLOR_SUCCESS, VALID_TAGLIST_1,
+                VALID_TAG_COLOR_NAME_RED);
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updateTagColorPair(VALID_TAGLIST_1, new TagColor(VALID_TAG_COLOR_NAME_RED));
+        assertCommandSuccess(changeTagColorCommand, expectedModel, expectedMessage);
+
+        /* Case: undo changing tag color  -> tag color changes back to default orange */
+        String command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, getModel(), expectedResultMessage);
+
+        /* Case: undo changing tag color  -> tag color changes back to red again */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, model, expectedResultMessage);
+
+        /* Case: change the tag color of more than one tag to one color -> tag color changed */
+        changeTagColorCommand = ChangeTagColorCommand.COMMAND_WORD + " t/friends t/family c/yellow";
+        expectedMessage = String.format(MESSAGE_CHANGE_TAG_COLOR_SUCCESS, VALID_TAGLIST_2,
+                VALID_TAG_COLOR_NAME_YELLOW);
+        expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updateTagColorPair(VALID_TAGLIST_2, new TagColor(VALID_TAG_COLOR_NAME_YELLOW));
+        assertCommandSuccess(changeTagColorCommand, expectedModel, expectedMessage);
+
+        /* Case: change the tag color of a tag with invalid tag name-> rejected */
+        changeTagColorCommand = ChangeTagColorCommand.COMMAND_WORD + " t/invalid_tag_name c/yellow";
+        expectedMessage = Tag.MESSAGE_TAG_CONSTRAINTS;
+        assertCommandFailure(changeTagColorCommand, expectedMessage);
+
+        /* Case: change the tag color of a tag with non-existing tag name-> rejected */
+        changeTagColorCommand = ChangeTagColorCommand.COMMAND_WORD + " c/yellow" + " t/" + INVALID_TAG;
+        expectedMessage = String.format(ChangeTagColorCommand.MESSAGE_NOT_EXISTING_TAGS, INVALID_TAGLIST);
+        assertCommandFailure(changeTagColorCommand, expectedMessage);
+
+        /* Case: change the tag color of a list of tags consist of non-existing tag name-> rejected */
+        changeTagColorCommand = ChangeTagColorCommand.COMMAND_WORD + " c/yellow" + " t/" + INVALID_TAG
+                + " t/" + INVALID_TAG_2;
+        expectedMessage = String.format(ChangeTagColorCommand.MESSAGE_NOT_EXISTING_TAGS, INVALID_TAGLIST_2);
+        assertCommandFailure(changeTagColorCommand, expectedMessage);
+
+        /* Case: input tag color name is not valid-> rejected */
+        changeTagColorCommand = ChangeTagColorCommand.COMMAND_WORD + " t/friends" + " c/" + INVALID_TAG_COLOR_NAME;
+        expectedMessage = TagColor.MESSAGE_TAG_COLOR_CONSTRAINTS;
+        assertCommandFailure(changeTagColorCommand, expectedMessage);
+
+        /* Case: missing tag color field-> rejected */
+        changeTagColorCommand = ChangeTagColorCommand.COMMAND_WORD + " t/friends";
+        expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ChangeTagColorCommand.MESSAGE_USAGE);
+        assertCommandFailure(changeTagColorCommand, expectedMessage);
+
+        /* Case: missing tag field-> rejected */
+        changeTagColorCommand = ChangeTagColorCommand.COMMAND_WORD + " c/red";
+        expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ChangeTagColorCommand.MESSAGE_USAGE);
+        assertCommandFailure(changeTagColorCommand, expectedMessage);
+
+        /* Case: tag name is null-> rejected */
+        changeTagColorCommand = ChangeTagColorCommand.COMMAND_WORD + " c/red t/";
+        expectedMessage = Tag.MESSAGE_TAG_CONSTRAINTS;
+        assertCommandFailure(changeTagColorCommand, expectedMessage);
+
+        /* Case: color is null-> rejected */
+        changeTagColorCommand = ChangeTagColorCommand.COMMAND_WORD + " t/friend c/";
+        expectedMessage = TagColor.MESSAGE_TAG_COLOR_CONSTRAINTS;
+        assertCommandFailure(changeTagColorCommand, expectedMessage);
+    }
+
+    /**
+     * Performs the same verification as {@code assertCommandSuccess(String, ReadOnlyPerson)} except that the result
+     * display box displays {@code expectedResultMessage} and the model related components equal to
+     * {@code expectedModel}.
+     */
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+        executeCommand(command);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertSelectedCardUnchanged();
+        assertCommandBoxShowsDefaultStyle();
+    }
+
+    /**
+     * Executes {@code command} and verifies that the command box displays {@code command}, the result display
+     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
+     * error style.
+     *
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandFailure(String command, String expectedResultMessage) {
+        Model expectedModel = getModel();
+
+        executeCommand(command);
+        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
+        assertSelectedCardUnchanged();
+        assertCommandBoxShowsErrorStyle();
+        assertStatusBarUnchanged();
+    }
+}
+```
+###### /java/systemtests/ChangeThemeCommandSystemTest.java
+``` java
+package systemtests;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import org.junit.Test;
+
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.ChangeThemeCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.theme.Theme;
+
+public class ChangeThemeCommandSystemTest extends AddressBookSystemTest {
+    private Model modelBrightTheme;
+    private Model modelDarkTheme;
+
+    @Test
+    public void changeTheme() throws Exception {
+        prepareExpectedModels();
+
+        /* Case: change the theme to Dark -> them changed to dark */
+        String changeThemeCommand = ChangeThemeCommand.COMMAND_WORD + " " + Theme.DARK_THEME;
+        String expectedMessage = String.format(ChangeThemeCommand.MESSAGE_CHANGE_THEME_SUCCESS, Theme.DARK_THEME);
+        assertCommandSuccess(changeThemeCommand, modelDarkTheme, expectedMessage);
+
+        /* Case: undo changing theme  -> theme changes back to bright */
+        String command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, modelBrightTheme, expectedResultMessage);
+
+        /* Case: undo changing theme  -> theme changes back to dark again */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, modelDarkTheme, expectedResultMessage);
+
+        /* Case: change the theme to bright -> theme changed */
+        changeThemeCommand = ChangeThemeCommand.COMMAND_WORD + " " + Theme.BRIGHT_THEME;
+        expectedMessage = String.format(ChangeThemeCommand.MESSAGE_CHANGE_THEME_SUCCESS, Theme.BRIGHT_THEME);
+        assertCommandSuccess(changeThemeCommand, modelBrightTheme, expectedMessage);
+
+        /* Case: input theme name is invalid -> rejected */
+        changeThemeCommand = ChangeThemeCommand.COMMAND_WORD + " " + "invalid_theme_name";
+        assertCommandFailure(changeThemeCommand,
+                String.format(ChangeThemeCommand.MESSAGE_INVALID_THEME_NAME, "invalid_theme_name"));
+
+        /* Case: input theme name is null -> rejected */
+        changeThemeCommand = ChangeThemeCommand.COMMAND_WORD + "  ";
+        assertCommandFailure(changeThemeCommand,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeThemeCommand.MESSAGE_USAGE));
+
+    }
+
+    /**
+     * Performs the same verification as {@code assertCommandSuccess(String, ReadOnlyPerson)} except that the result
+     * display box displays {@code expectedResultMessage} and the model related components equal to
+     * {@code expectedModel}.
+     */
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+        executeCommand(command);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertSelectedCardUnchanged();
+        assertCommandBoxShowsDefaultStyle();
+    }
+
+    /**
+     * Executes {@code command} and verifies that the command box displays {@code command}, the result display
+     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
+     * error style.
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandFailure(String command, String expectedResultMessage) {
+        Model expectedModel = getModel();
+
+        executeCommand(command);
+        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
+        assertSelectedCardUnchanged();
+        assertCommandBoxShowsErrorStyle();
+        assertStatusBarUnchanged();
+    }
+
+    /**
+     * Generates different models with different themes
+     */
+    private void prepareExpectedModels() {
+
+        modelBrightTheme = prepareExpectedModelGivenThemeName(Theme.BRIGHT_THEME);
+        modelDarkTheme = prepareExpectedModelGivenThemeName(Theme.DARK_THEME);
+
+    }
+
+    /**
+     * Generate models with different theme
+     * @param theme
+     * @return new model with given theme
+     */
+    private Model prepareExpectedModelGivenThemeName(String theme) {
+        assert (Theme.isValidThemeName(theme));
+
+        // Generate new user preference with given theme
+        UserPrefs newUserPrefs = new UserPrefs();
+        GuiSettings guiSettings = newUserPrefs.getGuiSettings();
+        newUserPrefs.setGuiSettings(
+                guiSettings.getWindowHeight(),
+                guiSettings.getWindowWidth(),
+                guiSettings.getWindowCoordinates().x,
+                guiSettings.getWindowCoordinates().y,
+                guiSettings.getFontSize(), theme);
+
+        return new ModelManager(new AddressBook(getModel().getAddressBook()), newUserPrefs);
+    }
+
+}
+```
+###### /java/systemtests/MapCommandSystemTest.java
+``` java
+package systemtests;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+
+import org.junit.Test;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.MapCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.Model;
+import seedu.address.model.person.ReadOnlyPerson;
+
+public class MapCommandSystemTest extends AddressBookSystemTest {
+    @Test
+    public void map() {
+        /* Case: show the map for the first card in the person list, command with leading spaces and trailing spaces
+         * -> map showed
+         */
+        String command = "   " + MapCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
+        assertCommandSuccess(command, INDEX_FIRST_PERSON);
+
+        /* Case: show the map of person's address of the last card in the person list -> map showed */
+        Index personCount = Index.fromOneBased(getTypicalPersons().size());
+        command = MapCommand.COMMAND_WORD + " " + personCount.getOneBased();
+        assertCommandSuccess(command, personCount);
+
+        /* Case: undo previous map showing -> rejected */
+        command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(command, expectedResultMessage);
+
+        /* Case: redo showing the map of person's address -> rejected */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(command, expectedResultMessage);
+
+        /* Case: show the map of person's address of the middle card in the person list -> showed */
+        Index middleIndex = Index.fromOneBased(personCount.getOneBased() / 2);
+        command = MapCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
+        assertCommandSuccess(command, middleIndex);
+
+        /* Case: invalid index (size + 1) -> rejected */
+        int invalidIndex = getModel().getFilteredPersonList().size() + 1;
+        command = MapCommand.COMMAND_WORD + " " + invalidIndex;
+        expectedResultMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        assertCommandFailure(command, expectedResultMessage);
+
+        /* Case: filtered person list, show map within bounds of whole contact list but out of bounds of person list
+         * -> rejected
+         */
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        invalidIndex = getModel().getAddressBook().getPersonList().size();
+        assertCommandFailure(MapCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        /* Case: filtered person list, show map within bounds of whole contact list and person list -> showed */
+        Index validIndex = Index.fromOneBased(1);
+        assert validIndex.getZeroBased() < getModel().getFilteredPersonList().size();
+        command = MapCommand.COMMAND_WORD + " " + validIndex.getOneBased();
+        assertCommandSuccess(command, validIndex);
+
+        /* Case: invalid index (0) -> rejected */
+        assertCommandFailure(MapCommand.COMMAND_WORD + " " + 0,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MapCommand.MESSAGE_USAGE));
+
+        /* Case: invalid index (-1) -> rejected */
+        assertCommandFailure(MapCommand.COMMAND_WORD + " " + -1,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MapCommand.MESSAGE_USAGE));
+
+        /* Case: invalid arguments (alphabets) -> rejected */
+        assertCommandFailure(MapCommand.COMMAND_WORD + " abc",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MapCommand.MESSAGE_USAGE));
+
+        /* Case: invalid arguments (extra argument) -> rejected */
+        assertCommandFailure(MapCommand.COMMAND_WORD + " 1 abc",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MapCommand.MESSAGE_USAGE));
+
+        /* Case: mixed case command word -> success */
+        command = "mAp 1";
+        assertCommandSuccess(command, INDEX_FIRST_PERSON);
+
+        /* Case: select from empty contact list -> rejected */
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assert getModel().getAddressBook().getPersonList().size() == 0;
+        assertCommandFailure(MapCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    /**
+     * Executes {@code command} and verifies that the command box displays an empty string, the result display
+     * box displays the success message of executing map command with the {@code expectedSelectedCardIndex}
+     * of the selected person, and the model related components equal to the current model.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the command box has the default style class and the status bar remain unchanged. The
+     * resulting
+     * browser url and selected card will be verified if the current selected card and the card at
+     * {@code expectedSelectedCardIndex} are different.
+     *
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
+        Model expectedModel = getModel();
+        ReadOnlyPerson readOnlyPerson = expectedModel.getFilteredPersonList()
+                .get(expectedSelectedCardIndex.getZeroBased());
+        String expectedResultMessage = String.format(
+                MapCommand.MESSAGE_SELECT_PERSON_SUCCESS, readOnlyPerson.getName());
+
+        executeCommand(command);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertCommandBoxShowsDefaultStyle();
+        assertStatusBarUnchanged();
+    }
+
+    /**
+     * Executes {@code command} and verifies that the command box displays {@code command}, the result display
+     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
+     * error style.
+     *
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandFailure(String command, String expectedResultMessage) {
+        Model expectedModel = getModel();
+
+        executeCommand(command);
+        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
+        assertCommandBoxShowsErrorStyle();
+        assertStatusBarUnchanged();
+    }
 }
 ```

@@ -61,6 +61,7 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_SUBJECT = "party";
     public static final String VALID_TAG_FAMILY = "family";
     public static final String VALID_TAG_COLOR_NAME_RED = "red";
+    public static final String VALID_TAG_COLOR_NAME_YELLOW = "yellow";
 
     public static final String VALID_USERNAME_AMY = "amy";
     public static final String VALID_USERNAME_BOB = "bob";
@@ -121,11 +122,13 @@ public class CommandTestUtil {
     public static final String INVALID_REMARK_BOB = "Dummy";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_TAG = "notExistingTag";
+    public static final String INVALID_TAG_2 = "notExistingTag2";
     public static final String INVALID_FONT_SIZE = "invalid font size";
     public static final String INVALID_THEME_NAME = "invalid theme name";
     public static final String INVALID_DETAILS_DESC = " " + PREFIX_REMINDER_DETAILS + "@Meeting";
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_REMINDER_PRIORITY + "!High";
     public static final String INVALID_DUE_DATE_DESC = " " + PREFIX_REMINDER_DUE_DATE + "@13.10.1997";
+    public static final String INVALID_TAG_COLOR_NAME = "invalid tag color name";
     public static final String INVALID_DATE_OF_BIRTH_DESC_BOUNDS = " " + PREFIX_DOB + "30.02.2017";
     public static final String INVALID_EMAIL_TAG = " " + PREFIX_TAG + "FRIEN";
     public static final String INVALID_EMAIL_SUBJECT = " " + PREFIX_SUBJECT + "s.s";
@@ -136,8 +139,10 @@ public class CommandTestUtil {
     public static final ChangeReminderCommand.ChangeReminderDescriptor DESC_MEETING;
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
-    public static final Set<Tag> VALID_TAGLIST;
+    public static final Set<Tag> VALID_TAGLIST_1;
+    public static final Set<Tag> VALID_TAGLIST_2;
     public static final Set<Tag> INVALID_TAGLIST;
+    public static final Set<Tag> INVALID_TAGLIST_2;
 
 
     static {
@@ -149,6 +154,7 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withDateOfBirth(VALID_DOB_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        System.out.println();
         //@@author pjunwei95
         TAG_DESC_AMY = new DeleteTagDescriptorBuilder()
                 .withTags(VALID_TAG_FRIEND).build();
@@ -156,10 +162,17 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         //@@author pjunwei95
 
-        VALID_TAGLIST = new HashSet<>();
+        VALID_TAGLIST_1 = new HashSet<>();
         try {
-            VALID_TAGLIST.add(new Tag(VALID_TAG_FRIEND));
-            VALID_TAGLIST.add(new Tag(VALID_TAG_FAMILY));
+            VALID_TAGLIST_1.add(new Tag(VALID_TAG_FRIEND));
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+
+        VALID_TAGLIST_2 = new HashSet<>();
+        try {
+            VALID_TAGLIST_2.add(new Tag(VALID_TAG_FRIEND));
+            VALID_TAGLIST_2.add(new Tag(VALID_TAG_FAMILY));
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
@@ -171,6 +184,13 @@ public class CommandTestUtil {
             e.printStackTrace();
         }
 
+        INVALID_TAGLIST_2 = new HashSet<>();
+        try {
+            INVALID_TAGLIST_2.add(new Tag(INVALID_TAG));
+            INVALID_TAGLIST_2.add(new Tag(INVALID_TAG_2));
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
     }
     static {
 

@@ -1,35 +1,5 @@
 # generated
-###### \java\seedu\address\logic\commands\UndoableCommand.java
-``` java
-
-        //Revert font size
-        if (this instanceof ChangeFontSizeCommand) {
-            FontSize.setCurrentFontSizeLabel(previousFontSize);
-            EventsCenter.getInstance().post(new ChangeFontSizeEvent("", previousFontSize));
-        }
-
-        //Revert theme
-        if (this instanceof ChangeThemeCommand) {
-            Theme.setCurrentTheme(previousTheme);
-            EventsCenter.getInstance().post(new ChangeThemeEvent(previousTheme));
-        }
-    }
-
-    /**
-     * Executes the command and updates the filtered person
-     * list to show all persons.
-     */
-    protected final void redo() {
-        requireNonNull(model);
-        try {
-            executeUndoableCommand();
-        } catch (CommandException ce) {
-            throw new AssertionError("The command has been successfully executed previously; "
-                    + "it should not fail now");
-        }
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-```
-###### \java\seedu\address\logic\commands\UndoableCommand.java
+###### /java/seedu/address/logic/commands/UndoableCommand.java
 ``` java
     }
 
@@ -40,7 +10,7 @@
     }
 }
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
     private final UniqueTagList tags;
 
@@ -53,7 +23,7 @@
      */
     {
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
         persons = new UniquePersonList();
         tags = new UniqueTagList();
@@ -80,7 +50,7 @@
     }
 
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
@@ -118,7 +88,7 @@
         persons.add(newPerson);
     }
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
 
     /**
@@ -144,7 +114,7 @@
     }
 
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
     /**
      * Ensures that every tag in this person:
@@ -189,91 +159,15 @@
     }
 
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
     //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
-
-    /**
-     * Update the tag color pair in storage
-     * @param modifyingTagList tags that need to be changed color
-     * @param color
-     * @throws IllegalValueException
-     */
-    public void updateTagColorPair(Set<Tag> modifyingTagList, TagColor color) throws IllegalValueException {
-        // Set the list of tags to new list of tags
-        setTags(getUpdatedTagColorPair(modifyingTagList, tags.toSet(), color));
-
-        updateTagColorInEveryPerson(modifyingTagList, color);
-    }
-
-    /**
-     * Get a list of given tags with updated color
-     * @param modifyingTagList
-     * @param existingTagList
-     * @param color
-     * @return list of updated tags
-     * @throws IllegalValueException
-     */
-    private Set<Tag> getUpdatedTagColorPair(Set<Tag> modifyingTagList, Set<Tag> existingTagList, TagColor color)
-            throws IllegalValueException {
-        // To store updated list of tags
-        Set<Tag> updatedTags = new HashSet<>();
-
-        for (Tag existingTag: existingTagList) {
-            for (Tag modifyingTag: modifyingTagList) {
-
-                // Check whether a tag needs to be changed its color
-                if (modifyingTag.equals(existingTag)) {
-
-                    // Change the color of the tag
-                    updatedTags.add(new Tag(modifyingTag.tagName, color.tagColorName));
-
-                }
-            }
-
-            // This tag doesn't need to be changed
-            if (!updatedTags.contains(existingTag)) {
-                // Remain unchanged
-                updatedTags.add(existingTag);
-            }
-        }
-
-        return updatedTags;
-
-    }
-
-    /**
-     * Update tag and color pair in every person
-     */
-    private void updateTagColorInEveryPerson(Set<Tag> modifyingTagList, TagColor tagColor)
-            throws IllegalValueException {
-        for (Person person : persons) {
-            Set<Tag> updatedTagList = getUpdatedTagColorPair(modifyingTagList, person.getTags(), tagColor);
-            person.setTags(updatedTagList);
-        }
-    }
-
-
-    //// util methods
-
-    @Override
-    public String toString() {
-        return persons.asObservableList().size() + " persons, "
-                + tags.asObservableList().size() +  " tags" + reminders.asObservableList().size() + " reminders";
-        // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<ReadOnlyPerson> getPersonList() {
-        return persons.asObservableList();
-    }
-
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
 
     @Override
@@ -298,7 +192,7 @@
 
 }
 ```
-###### \java\seedu\address\storage\XmlSerializableAddressBook.java
+###### /java/seedu/address/storage/XmlSerializableAddressBook.java
 ``` java
 
     /**
@@ -309,7 +203,7 @@
         persons = new ArrayList<>();
         tags = new ArrayList<>();
 ```
-###### \java\seedu\address\storage\XmlSerializableAddressBook.java
+###### /java/seedu/address/storage/XmlSerializableAddressBook.java
 ``` java
     }
 
@@ -320,7 +214,7 @@
         this();
         reminders.addAll(src.getReminderList().stream().map(XmlAdaptedReminder::new).collect(Collectors.toList()));
 ```
-###### \java\seedu\address\storage\XmlSerializableAddressBook.java
+###### /java/seedu/address/storage/XmlSerializableAddressBook.java
 ``` java
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
@@ -339,7 +233,7 @@
         return FXCollections.unmodifiableObservableList(persons);
     }
 ```
-###### \java\seedu\address\storage\XmlSerializableAddressBook.java
+###### /java/seedu/address/storage/XmlSerializableAddressBook.java
 ``` java
     @Override
     public ObservableList<Tag> getTagList() {
@@ -357,7 +251,7 @@
 
 }
 ```
-###### \java\seedu\address\ui\MainWindow.java
+###### /java/seedu/address/ui/MainWindow.java
 ``` java
 
     @FXML

@@ -21,7 +21,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.theme.Theme;
 //@@author ChenXiaoman
 /**
- * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ChangeThemeCommand}.
  */
 public class ChangeThemeCommandTest {
 

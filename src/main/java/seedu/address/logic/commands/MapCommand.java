@@ -1,3 +1,4 @@
+//@@author ChenXiaoman
 package seedu.address.logic.commands;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ShowPersonAddressEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.ReadOnlyPerson;
-//@@author ChenXiaoman
+
 /**
  * Shows a person's address identified using person's last displayed index from the list.
  */

@@ -336,3 +336,8 @@
     -fx-background-color: transparent, #383838, transparent, #383838;
     -fx-background-radius: 0;
 }
+
+.list-cell:empty {
+    /* Empty cells will not have alternating colours */
+    -fx-background: #383838;
+}

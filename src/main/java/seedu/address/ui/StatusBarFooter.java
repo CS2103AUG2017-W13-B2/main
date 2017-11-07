@@ -52,7 +52,6 @@ public class StatusBarFooter extends UiPart<Region> {
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
         setTotalPerson(numberOfTotalPersons);
-        registerAsAnEventHandler(this);
     }
 
     /**

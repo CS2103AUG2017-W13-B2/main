@@ -1,3 +1,4 @@
+//@@author ChenXiaoman
 package seedu.address.ui;
 
 import static seedu.address.model.font.FontSize.getAssociateFxFontSizeString;
@@ -23,7 +24,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.font.FontSize;
 import seedu.address.model.person.ReadOnlyPerson;
 
-//@@author ChenXiaoman
 /**
  * An UI component that displays information of a {@code Person}.
  */
@@ -95,7 +95,7 @@ public class PersonCard extends UiPart<Region> {
     public Label getAddressLabel() {
         return address;
     }
-
+    //@@author
     /**
      * Adds a photo to a persons contact
      */
@@ -130,7 +130,7 @@ public class PersonCard extends UiPart<Region> {
 
         }
     }
-
+    //@@author ChenXiaoman
     /**
      * Binds the individual UI elements to observe their respective {@code Person} properties
      * so that they will be notified of any changes.

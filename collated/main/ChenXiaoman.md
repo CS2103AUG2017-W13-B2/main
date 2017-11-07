@@ -1,6 +1,10 @@
 # ChenXiaoman
-###### \java\seedu\address\commons\events\ui\ChangeFontSizeEvent.java
+###### /java/seedu/address/commons/events/ui/ChangeFontSizeEvent.java
 ``` java
+package seedu.address.commons.events.ui;
+
+import seedu.address.commons.events.BaseEvent;
+
 /**
  * Indicates a request to change the font size of the application
  */
@@ -30,8 +34,12 @@ public class ChangeFontSizeEvent extends BaseEvent {
 
 }
 ```
-###### \java\seedu\address\commons\events\ui\ChangeTagColorEvent.java
+###### /java/seedu/address/commons/events/ui/ChangeTagColorEvent.java
 ``` java
+package seedu.address.commons.events.ui;
+
+import seedu.address.commons.events.BaseEvent;
+
 /**
  * Indicates a request to change the tag color of the application
  */
@@ -52,7 +60,7 @@ public class ChangeTagColorEvent extends BaseEvent {
     }
 }
 ```
-###### \java\seedu\address\commons\events\ui\ChangeThemeEvent.java
+###### /java/seedu/address/commons/events/ui/ChangeThemeEvent.java
 ``` java
 /**
  * Indicates a request to change the theme of the application
@@ -74,7 +82,7 @@ public class ChangeThemeEvent extends BaseEvent {
     }
 }
 ```
-###### \java\seedu\address\commons\events\ui\ShowPersonAddressEvent.java
+###### /java/seedu/address/commons/events/ui/ShowPersonAddressEvent.java
 ``` java
 /**
  * Indicates a request to show a person's address in Google Map
@@ -99,7 +107,7 @@ public class ShowPersonAddressEvent extends BaseEvent {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\ChangeFontSizeCommand.java
+###### /java/seedu/address/logic/commands/ChangeFontSizeCommand.java
 ``` java
 /**
  * Customise the font size of the Address Book application.
@@ -146,8 +154,24 @@ public class ChangeFontSizeCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\ChangeTagColorCommand.java
+###### /java/seedu/address/logic/commands/ChangeTagColorCommand.java
 ``` java
+package seedu.address.logic.commands;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ChangeTagColorEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagColor;
+
 /**
  * Change color of tags
  */
@@ -164,9 +188,6 @@ public class ChangeTagColorCommand extends UndoableCommand {
             + "c/red";
 
     public static final String MESSAGE_NOT_EXISTING_TAGS = "Cannot change color of not existing tags: %1$s";
-
-    public static final String MESSAGE_INVALID_COLOR = "Color %1$s is invalid."
-            + "\n" + TagColor.MESSAGE_TAG_COLOR_CONSTRAINTS;
 
     public static final String MESSAGE_FAILED = "Change tag color command failed";
 
@@ -217,11 +238,6 @@ public class ChangeTagColorCommand extends UndoableCommand {
             throw new CommandException(String.format(MESSAGE_NOT_EXISTING_TAGS, nonExistingTagList));
         }
 
-        // Check whether the input tag color is a valid color name
-        if (!TagColor.isValidTagColorName(color.tagColorName)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_COLOR, color));
-        }
-
         try {
             model.updateTagColorPair(tagList, color);
         } catch (IllegalValueException e) {
@@ -252,8 +268,23 @@ public class ChangeTagColorCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\ChangeThemeCommand.java
+###### /java/seedu/address/logic/commands/ChangeThemeCommand.java
 ``` java
+package seedu.address.logic.commands;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.model.theme.Theme.ALL_THEME_NAMES;
+import static seedu.address.model.theme.Theme.BRIGHT_THEME;
+import static seedu.address.model.theme.Theme.DARK_THEME;
+import static seedu.address.model.theme.Theme.isValidThemeName;
+
+import java.util.Arrays;
+
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ChangeThemeEvent;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.theme.Theme;
+
 /**
  * Change the theme of the application
  */
@@ -309,8 +340,19 @@ public class ChangeThemeCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\MapCommand.java
+###### /java/seedu/address/logic/commands/MapCommand.java
 ``` java
+package seedu.address.logic.commands;
+
+import java.util.List;
+
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowPersonAddressEvent;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.ReadOnlyPerson;
+
 /**
  * Shows a person's address identified using person's last displayed index from the list.
  */
@@ -356,41 +398,22 @@ public class MapCommand extends Command {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\UndoableCommand.java
+###### /java/seedu/address/logic/commands/UndoableCommand.java
 ``` java
-/**
- * Represents a command which can be undone and redone.
- */
-public abstract class UndoableCommand extends Command {
-    private static String previousFontSize = FontSize.getCurrentFontSizeLabel();
-    private static String previousTheme = Theme.getCurrentTheme();
-    private ReadOnlyAddressBook previousAddressBook;
 
-    protected abstract CommandResult executeUndoableCommand() throws CommandException;
+        //Revert font size
+        if (this instanceof ChangeFontSizeCommand) {
+            FontSize.setCurrentFontSizeLabel(previousFontSize);
+            EventsCenter.getInstance().post(new ChangeFontSizeEvent("", previousFontSize));
+        }
 
-    /**
-     * Stores the current state of {@code model#addressBook}.
-     */
-    private void saveAddressBookSnapshot() {
-        requireNonNull(model);
-        this.previousAddressBook = new AddressBook(model.getAddressBook());
-
-        previousFontSize = FontSize.getCurrentFontSizeLabel();
-        previousTheme = Theme.getCurrentTheme();
-    }
-
-    /**
-     * Reverts the AddressBook to the state before this command
-     * was executed and updates the filtered person list to
-     * show all persons.
-     */
-    protected final void undo() {
-        requireAllNonNull(model, previousAddressBook);
-
-        model.resetData(previousAddressBook);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        //Revert theme
+        if (this instanceof ChangeThemeCommand) {
+            Theme.setCurrentTheme(previousTheme);
+            EventsCenter.getInstance().post(new ChangeThemeEvent(previousTheme));
+        }
 ```
-###### \java\seedu\address\logic\parser\AddressBookParser.java
+###### /java/seedu/address/logic/parser/AddressBookParser.java
 ``` java
         case ChangeTagColorCommand.COMMAND_WORD:
             return new ChangeTagColorCommandParser().parse(arguments);
@@ -404,7 +427,7 @@ public abstract class UndoableCommand extends Command {
         case MapCommand.COMMAND_WORD:
             return new MapCommandParser().parse(arguments);
 ```
-###### \java\seedu\address\logic\parser\ChangeFontSizeCommandParser.java
+###### /java/seedu/address/logic/parser/ChangeFontSizeCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new ChangeFontSizeCommand object
@@ -444,8 +467,24 @@ public class ChangeFontSizeCommandParser implements Parser<ChangeFontSizeCommand
 
 }
 ```
-###### \java\seedu\address\logic\parser\ChangeTagColorCommandParser.java
+###### /java/seedu/address/logic/parser/ChangeTagColorCommandParser.java
 ``` java
+package seedu.address.logic.parser;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.Set;
+import java.util.stream.Stream;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.ChangeTagColorCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagColor;
+
 /**
  * Parses input arguments and creates a new ChangeTagColorCommand object
  */
@@ -466,6 +505,7 @@ public class ChangeTagColorCommandParser implements Parser<ChangeTagColorCommand
         }
 
         try {
+
             TagColor tagColor = ParserUtil.parseTagColor(argMultimap.getValue(PREFIX_COLOR)).get();
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
@@ -484,8 +524,15 @@ public class ChangeTagColorCommandParser implements Parser<ChangeTagColorCommand
     }
 }
 ```
-###### \java\seedu\address\logic\parser\ChangeThemeCommandParser.java
+###### /java/seedu/address/logic/parser/ChangeThemeCommandParser.java
 ``` java
+package seedu.address.logic.parser;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import seedu.address.logic.commands.ChangeThemeCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Parses input arguments and creates a new ChangeThemeCommand object
  */
@@ -506,7 +553,7 @@ public class ChangeThemeCommandParser implements Parser<ChangeThemeCommand> {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\MapCommandParser.java
+###### /java/seedu/address/logic/parser/MapCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new MapCommand object
@@ -529,8 +576,76 @@ public class MapCommandParser implements Parser<MapCommand> {
     }
 }
 ```
-###### \java\seedu\address\model\font\FontSize.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
+    /**
+     * Update the tag color pair in storage
+     * @param modifyingTagList tags that need to be changed color
+     * @param color
+     * @throws IllegalValueException
+     */
+    public void updateTagColorPair(Set<Tag> modifyingTagList, TagColor color) throws IllegalValueException {
+        // Set the list of tags to new list of tags
+        setTags(getUpdatedTagColorPair(modifyingTagList, tags.toSet(), color));
+
+        updateTagColorInEveryPerson(modifyingTagList, color);
+    }
+
+    /**
+     * Get a list of given tags with updated color
+     * @param modifyingTagList
+     * @param existingTagList
+     * @param color
+     * @return list of updated tags
+     * @throws IllegalValueException
+     */
+    private Set<Tag> getUpdatedTagColorPair(Set<Tag> modifyingTagList, Set<Tag> existingTagList, TagColor color)
+            throws IllegalValueException {
+        // To store updated list of tags
+        Set<Tag> updatedTags = new HashSet<>();
+
+        for (Tag existingTag: existingTagList) {
+            for (Tag modifyingTag: modifyingTagList) {
+
+                // Check whether a tag needs to be changed its color
+                if (modifyingTag.equals(existingTag)) {
+
+                    // Change the color of the tag
+                    updatedTags.add(new Tag(modifyingTag.tagName, color.tagColorName));
+
+                }
+            }
+
+            // This tag doesn't need to be changed
+            if (!updatedTags.contains(existingTag)) {
+                // Remain unchanged
+                updatedTags.add(existingTag);
+            }
+        }
+
+        return updatedTags;
+
+    }
+
+    /**
+     * Update tag and color pair in every person
+     */
+    private void updateTagColorInEveryPerson(Set<Tag> modifyingTagList, TagColor tagColor)
+            throws IllegalValueException {
+        for (Person person : persons) {
+            Set<Tag> updatedTagList = getUpdatedTagColorPair(modifyingTagList, person.getTags(), tagColor);
+            person.setTags(updatedTagList);
+        }
+    }
+```
+###### /java/seedu/address/model/font/FontSize.java
+``` java
+package seedu.address.model.font;
+
+import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+
 /**
  * Represents the font size of the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidFontSize(String)}
@@ -819,8 +934,31 @@ public class FontSize {
 
 }
 ```
-###### \java\seedu\address\model\tag\Tag.java
+###### /java/seedu/address/model/Model.java
 ``` java
+    /**
+     * Update color of tags
+     * @param tagList
+     * @param color
+     */
+    void updateTagColorPair(Set<Tag> tagList, TagColor color) throws IllegalValueException;
+```
+###### /java/seedu/address/model/ModelManager.java
+``` java
+    @Override
+    public synchronized void updateTagColorPair(Set<Tag> tagList, TagColor color) throws IllegalValueException {
+        addressBook.updateTagColorPair(tagList, color);
+        indicateAddressBookChanged();
+    }
+```
+###### /java/seedu/address/model/tag/Tag.java
+``` java
+package seedu.address.model.tag;
+
+import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+
 /**
  * Represents a Tag of a person.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
@@ -891,14 +1029,14 @@ public class Tag {
 
 }
 ```
-###### \java\seedu\address\model\tag\TagColor.java
+###### /java/seedu/address/model/tag/TagColor.java
 ``` java
 /**
  * Represent a color of a tag
  */
 public class TagColor {
 ```
-###### \java\seedu\address\model\theme\Theme.java
+###### /java/seedu/address/model/theme/Theme.java
 ``` java
 /**
  * Represent a theme of an application
@@ -976,8 +1114,47 @@ public class Theme {
     }
 }
 ```
-###### \java\seedu\address\ui\CommandBox.java
+###### /java/seedu/address/ui/CommandBox.java
 ``` java
+
+    /**
+     * Handles the key released event, {@code keyEvent}.
+     */
+    @FXML
+    private void handleKeyReleased(KeyEvent keyEvent) {
+
+        String userInput = commandTextField.getText();
+
+        // If the user has not type in anything yet, there is no need to show error message
+        if (userInput.length() != 0) {
+
+            // Parse the user input while user is typing and show the error message if the command is invalid
+            parseInput(keyEvent.getCode(), userInput);
+        }
+    }
+
+    /**
+     * Parse user input and raise event to show corresponding message
+     */
+    private void parseInput(KeyCode keyCode, String userInput) {
+        logger.info("Parsing user input: " + userInput);
+        try {
+            // Try to parse the command to check whether the command is valid
+            addressBookParser.parseCommand(userInput);
+
+            if (!keyCode.equals(KeyCode.ENTER)) {
+
+                // If the command is valid, show format valid message
+                // If user presses enter key to execute the command, don't show parse message
+                raise(new NewResultAvailableEvent("Command format is valid", false));
+            }
+        } catch (ParseException e) {
+
+            // If user is entering invalid command, shows error message
+            raise(new NewResultAvailableEvent(e.getMessage(), true));
+        }
+    }
+
     @Subscribe
     private void handleChangeFontSizeEvent(ChangeFontSizeEvent event) {
         setFontSize(event.getFontSize());
@@ -992,8 +1169,33 @@ public class Theme {
     }
 
 ```
-###### \java\seedu\address\ui\PersonCard.java
+###### /java/seedu/address/ui/PersonCard.java
 ``` java
+package seedu.address.ui;
+
+import static seedu.address.model.font.FontSize.getAssociateFxFontSizeString;
+import static seedu.address.model.font.FontSize.getAssociateFxFontSizeStringForName;
+
+import java.io.File;
+
+import com.google.common.eventbus.Subscribe;
+
+import javafx.beans.binding.Bindings;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import seedu.address.commons.events.ui.ChangeFontSizeEvent;
+import seedu.address.commons.events.ui.ChangeTagColorEvent;
+import seedu.address.commons.events.ui.ShowPersonAddressEvent;
+import seedu.address.logic.commands.PhotoCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.font.FontSize;
+import seedu.address.model.person.ReadOnlyPerson;
+
 /**
  * An UI component that displays information of a {@code Person}.
  */
@@ -1065,57 +1267,9 @@ public class PersonCard extends UiPart<Region> {
     public Label getAddressLabel() {
         return address;
     }
-
-    /**
-     * Adds a photo to a persons contact
-     */
-    public void assignImage(String filePath) throws ParseException {
-
-        String url;
-        String Message_Image_Removed = "The image may have been removed from"
-                + " the previous location!";
-
-        if (filePath.equals("")) {
-            url = "/images/user.png";
-            Image Display = new Image(url);
-            image.setImage(Display);
-        } else {
-
-            if (filePath.endsWith("g")) {
-
-                url = filePath + "";
-
-                File file = new File(url);
-                boolean FileExists = file.exists();
-
-                if (!FileExists) {
-
-                    url = "/images/address_book_32.png";
-                    Image Display = new Image(url);
-                    image.setImage(Display);
-
-
-                    throw new ParseException(
-                            String.format(Message_Image_Removed, PhotoCommand.MESSAGE_USAGE)
-                    );
-                }
-                else {
-                    Image display = new Image(file.toURI().toString());
-                    image.setImage(display);
-                }
-            } else {
-
-                url = "src/main/resources/images/" + person.getImage().getFilePath() + ".jpg";
-                File stored = new File(url);
-                Image display = new Image(stored.toURI().toString(), 100, 100,
-                        false, false);
-
-                image.setImage(display);
-
-            }
-        }
-    }
-
+```
+###### /java/seedu/address/ui/PersonCard.java
+``` java
     /**
      * Binds the individual UI elements to observe their respective {@code Person} properties
      * so that they will be notified of any changes.
@@ -1238,7 +1392,7 @@ public class PersonCard extends UiPart<Region> {
 
 }
 ```
-###### \java\seedu\address\ui\ResultDisplay.java
+###### /java/seedu/address/ui/ResultDisplay.java
 ``` java
     @Subscribe
     private void handleChangeFontSizeEvent(ChangeFontSizeEvent event) {
@@ -1250,7 +1404,7 @@ public class PersonCard extends UiPart<Region> {
         resultDisplay.setStyle(fxFomatString);
     }
 ```
-###### \java\seedu\address\ui\StatusBarFooter.java
+###### /java/seedu/address/ui/StatusBarFooter.java
 ``` java
     @Subscribe
     private void handleChangeFontSizeEvent(ChangeFontSizeEvent event) {
@@ -1265,7 +1419,7 @@ public class PersonCard extends UiPart<Region> {
     }
 }
 ```
-###### \resources\view\MainWindow.fxml
+###### /resources/view/MainWindow.fxml
 ``` fxml
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
@@ -1344,7 +1498,7 @@ public class PersonCard extends UiPart<Region> {
 
 </VBox>
 ```
-###### \resources\view\PersonListCard.fxml
+###### /resources/view/PersonListCard.fxml
 ``` fxml
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">

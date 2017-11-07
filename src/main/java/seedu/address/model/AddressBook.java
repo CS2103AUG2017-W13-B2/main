@@ -226,7 +226,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
-
+    //@@author ChenXiaoman
     /**
      * Update the tag color pair in storage
      * @param modifyingTagList tags that need to be changed color
@@ -286,7 +286,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             person.setTags(updatedTagList);
         }
     }
-
+    //@@author
 
     //// util methods
 

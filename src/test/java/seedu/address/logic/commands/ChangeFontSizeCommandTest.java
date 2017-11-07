@@ -1,3 +1,4 @@
+//@@author ChenXiaoman
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
@@ -17,9 +18,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.font.FontSize;
-//@@author ChenXiaoman
+
 /**
- * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ChangeFontSizeCommand}.
  */
 public class ChangeFontSizeCommandTest {
     private UserPrefs userPrefs = new UserPrefs();

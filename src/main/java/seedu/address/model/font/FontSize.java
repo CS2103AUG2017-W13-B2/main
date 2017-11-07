@@ -1,10 +1,10 @@
+//@@author ChenXiaoman
 package seedu.address.model.font;
 
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
-//@@author ChenXiaoman
 /**
  * Represents the font size of the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidFontSize(String)}

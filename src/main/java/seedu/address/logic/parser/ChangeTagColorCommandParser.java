@@ -1,3 +1,4 @@
+//@@author ChenXiaoman
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
@@ -14,7 +15,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagColor;
 
-//@@author ChenXiaoman
 /**
  * Parses input arguments and creates a new ChangeTagColorCommand object
  */
@@ -35,6 +35,7 @@ public class ChangeTagColorCommandParser implements Parser<ChangeTagColorCommand
         }
 
         try {
+
             TagColor tagColor = ParserUtil.parseTagColor(argMultimap.getValue(PREFIX_COLOR)).get();
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 

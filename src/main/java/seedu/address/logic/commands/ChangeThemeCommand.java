@@ -1,3 +1,4 @@
+//@@author ChenXiaoman
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -13,7 +14,6 @@ import seedu.address.commons.events.ui.ChangeThemeEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.theme.Theme;
 
-//@@author ChenXiaoman
 /**
  * Change the theme of the application
  */

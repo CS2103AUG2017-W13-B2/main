@@ -49,6 +49,7 @@ public class ResultDisplay extends UiPart<Region> {
             setStyleToDefault();
         }
     }
+
     //@@author ChenXiaoman
     @Subscribe
     private void handleChangeFontSizeEvent(ChangeFontSizeEvent event) {

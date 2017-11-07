@@ -13,7 +13,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.font.FontSize;
 import seedu.address.model.theme.Theme;
-//@@author ChenXiaoman
 /**
  * Represents a command which can be undone and redone.
  */
@@ -47,7 +46,7 @@ public abstract class UndoableCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         //@@author RonakLakhotia
         model.updateFilteredReminderList(PREDICATE_SHOW_ALL_REMINDERS);
-        //@@author generated
+        //@@author ChenXiaoman
 
         //Revert font size
         if (this instanceof ChangeFontSizeCommand) {
@@ -60,6 +59,7 @@ public abstract class UndoableCommand extends Command {
             Theme.setCurrentTheme(previousTheme);
             EventsCenter.getInstance().post(new ChangeThemeEvent(previousTheme));
         }
+        //@@author
     }
 
     /**

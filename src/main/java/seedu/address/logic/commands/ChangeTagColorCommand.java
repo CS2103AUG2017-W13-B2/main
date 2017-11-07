@@ -1,3 +1,4 @@
+//@@author ChenXiaoman
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -13,7 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagColor;
-//@@author ChenXiaoman
+
 /**
  * Change color of tags
  */
@@ -30,9 +31,6 @@ public class ChangeTagColorCommand extends UndoableCommand {
             + "c/red";
 
     public static final String MESSAGE_NOT_EXISTING_TAGS = "Cannot change color of not existing tags: %1$s";
-
-    public static final String MESSAGE_INVALID_COLOR = "Color %1$s is invalid."
-            + "\n" + TagColor.MESSAGE_TAG_COLOR_CONSTRAINTS;
 
     public static final String MESSAGE_FAILED = "Change tag color command failed";
 
@@ -81,11 +79,6 @@ public class ChangeTagColorCommand extends UndoableCommand {
         // There are tags that are not existing tags
         if (nonExistingTagList.size() != 0) {
             throw new CommandException(String.format(MESSAGE_NOT_EXISTING_TAGS, nonExistingTagList));
-        }
-
-        // Check whether the input tag color is a valid color name
-        if (!TagColor.isValidTagColorName(color.tagColorName)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_COLOR, color));
         }
 
         try {
