@@ -35,7 +35,7 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 </div>
 </div>
 <div class="sect2">
-<h3 id="customize-tags-color-code-color-code-since-v1-2"><a class="link" href="#customize-tags-color-code-color-code-since-v1-2">Customize tags' color : <code>color</code> since v1.2</a></h3>
+<h3 id="customize-tags-color-code-color-code-since-v1-2"><a class="link" href="#customize-tags-color-code-color-code-since-v1-2">Customize tags' color : <code>color</code> Since v1.2</a></h3>
 <div class="paragraph">
 <p>Change the color of one or more than one tags.<br>
 Format: <code>color [c/COLOR] [t/TAG]&#8230;&#8203;</code></p>
@@ -223,7 +223,7 @@ The structure in .xml storage file is like the following:</p>
 <strong>Cons:</strong> It is complicated to implement.<br>
 <strong>Alternative 2:</strong> Create a static hash map of all tag names(String) and their associate tag color(String) inside <code>Tag</code> class.<br>
 <strong>Pros:</strong> It is easy to implement.<br>
-<strong>Cons:</strong> Storing tag and tag color pairs inside <code>Tag</code> class violates the single responsibility principle of classes.</p>
+<strong>Cons:</strong> All the methods associated with tag color will be stored inside <code>Tag</code> class, which violates the single responsibility principle of classes.</p>
 </div>
 <hr>
 <div class="paragraph">
