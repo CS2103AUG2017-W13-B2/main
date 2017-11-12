@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Chen Xiaoman - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Chen Xiaoman - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-weaver"><a class="link" href="#project-weaver">Project: Weaver</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Weaver is a desktop address book application used by university students to
+manage their contacts and school life.<br>
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-W13-B2/main/blob/master/collated/main/ChenXiaoman.md">Functional code</a>]
+ [<a href="https://github.com/CS2103AUG2017-W13-B2/main/blob/master/collated/test/ChenXiaoman.md">Test code</a>]</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-customize-tag-color-command"><a class="link" href="#enhancement-added-customize-tag-color-command">Enhancement Added: Customize tag color command</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="customize-tags-color-code-color-code-since-v1-2"><a class="link" href="#customize-tags-color-code-color-code-since-v1-2">Customize tags' color : <code>color</code> since v1.2</a></h3>
+<div class="paragraph">
+<p>Change the color of one or more than one tags.<br>
+Format: <code>color [c/COLOR] [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The default color of tags is "orange"</p>
+</li>
+<li>
+<p>You can change the color of more than one tag at a time</p>
+</li>
+<li>
+<p>The colors supported are: "red", "blue", "green", "teal", "aqua", "black", "gray", "lime", "maroon", "navy","orange", "purple", "silver", "olive","white", "yellow" and "transparent"</p>
+</li>
+<li>
+<p>You cannot change the color of a non existing tag</p>
+</li>
+<li>
+<p>The color for tags that you have set will be stored in user preference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>color c/red t/friends</code></p>
+</li>
+<li>
+<p><code>color c/red t/friends t/family t/colleagues</code></p>
+</li>
+<li>
+<p><code>color t/friend c/invalid_color</code><br>
+The <code>color</code> command fails as <code>invalid_color</code> is not supported.</p>
+</li>
+<li>
+<p><code>color t/not_existing_tag c/yellow</code><br>
+The <code>color</code> command fails as <code>not_existing_tag</code> does not exit in current database.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/tagcolor.png" alt="tagcolor" width="790">
+</div>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>Defining different color for different tag helps user distinguish tags visually.
+Also, the various colors of tags make the whole user interface colorful and beautiful.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="customize-tag-color-mechanism"><a class="link" href="#customize-tag-color-mechanism">Customize tag color mechanism</a></h3>
+<div class="paragraph">
+<p>Tag color can be changed by giving a <code>ChangeTagColorCommand</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+User can change one or more than one tag to a different color in one command.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The diagram below shows the hierarchy of ChangeTagColorCommand.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ChangeTagColorCommandClassDiagram.png" alt="ChangeTagColorCommandClassDiagram" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>We use a new class <code>TagColor</code> to represent a color of a tag. For every <code>Tag</code> object, it has a new field <code>tagColor</code> of <code>TagColor</code> class which stores its associate tag color.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When the tag color of a tag has not specified by the user yet, it is in default color orange.<br>
+Tags with the same tag name are of the same color.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The diagram below shows the hierarchy of TagColor class.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/TagColorClassDiagram.png" alt="TagColorClassDiagram" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>After every <code>ChangeTagColorCommand</code>, the tag and tag color pair will be stored in the storage file.
+An <code>ChangeTagColorEvent</code> is raised so that the tag color in the UI is also updated accordingly.<br>
+The structure in .xml storage file is like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="css"><span class="error">&lt;</span><span class="tag">persons</span>&gt;
+    <span class="error">&lt;</span><span class="tag">name</span>&gt;<span class="tag">John</span> <span class="tag">Doe</span><span class="error">&lt;</span>/<span class="tag">name</span>&gt;
+    <span class="error">&lt;</span><span class="tag">phone</span>&gt;<span class="float">98765432</span><span class="error">&lt;</span>/<span class="tag">phone</span>&gt;
+    <span class="error">&lt;</span><span class="tag">email</span>&gt;<span class="tag">johnd</span><span class="directive">@example</span><span class="class">.com</span><span class="error">&lt;</span>/<span class="tag">email</span>&gt;
+    <span class="error">&lt;</span><span class="tag">tagged</span>&gt;
+        <span class="error">&lt;</span><span class="tag">name</span>&gt;<span class="tag">friends</span><span class="error">&lt;</span>/<span class="tag">name</span>&gt;
+        <span class="error">&lt;</span><span class="tag">color</span>&gt;<span class="tag">orange</span><span class="error">&lt;</span>/<span class="tag">color</span>&gt;
+    <span class="error">&lt;</span>/<span class="tag">tagged</span>&gt;
+<span class="error">&lt;</span>/<span class="tag">persons</span>&gt;
+<span class="error">&lt;</span><span class="tag">tags</span>&gt;
+    <span class="error">&lt;</span><span class="tag">name</span>&gt;<span class="tag">friends</span><span class="error">&lt;</span>/<span class="tag">name</span>&gt;
+    <span class="error">&lt;</span><span class="tag">color</span>&gt;<span class="tag">orange</span><span class="error">&lt;</span>/<span class="tag">color</span>&gt;
+<span class="error">&lt;</span>/<span class="tag">tags</span>&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following code shows the execution of <code>ChangeTagColorCommand</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">protected</span> CommandResult executeUndoableCommand() <span class="directive">throws</span> CommandException {
+        <span class="comment">// Store all non existing tags</span>
+        <span class="predefined-type">Set</span>&lt;Tag&gt; nonExistingTagList = <span class="keyword">new</span> <span class="predefined-type">HashSet</span>&lt;&gt;();
+
+        <span class="comment">// Check whether tags in the tagList are not existing tags</span>
+        <span class="keyword">for</span> (Tag tag: tagList) {
+            <span class="keyword">if</span> (!isExistingTagName(tag)) {
+                nonExistingTagList.add(tag);
+            }
+        }
+
+        <span class="comment">// There are tags that are not existing tags</span>
+        <span class="keyword">if</span> (nonExistingTagList.size() != <span class="integer">0</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(<span class="predefined-type">String</span>.format(MESSAGE_NOT_EXISTING_TAGS, nonExistingTagList));
+        }
+
+        <span class="keyword">try</span> {
+            model.updateTagColorPair(tagList, color);
+        } <span class="keyword">catch</span> (IllegalValueException e) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_FAILED);
+        }
+
+        EventsCenter.getInstance().post(<span class="keyword">new</span> ChangeTagColorEvent(color.tagColorName));
+
+        <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(<span class="predefined-type">String</span>.format(MESSAGE_CHANGE_TAG_COLOR_SUCCESS, tagList, color.tagColorName));
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows how the <code>ChangeTagColorCommand</code> works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ChangeTagColorSequenceDiagram.png" alt="ChangeTagColorSequenceDiagram" width="800">
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> How to associate each tag with a tag color?<br>
+<strong>Alternative 1 (current choice):</strong> Create a new class <code>TagColor</code> and add a new field to <code>Tag</code> class.<br>
+<strong>Pros:</strong> The associate tag color is easy to get from a given tag. It is also very intuitive for each tag to have its tag color.<br>
+<strong>Cons:</strong> It is complicated to implement.<br>
+<strong>Alternative 2:</strong> Create a static hash map of all tag names(String) and their associate tag color(String) inside <code>Tag</code> class.<br>
+<strong>Pros:</strong> It is easy to implement.<br>
+<strong>Cons:</strong> Storing tag and tag color pairs inside <code>Tag</code> class violates the single responsibility principle of classes.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Colors supported of <code>TagColor</code><br>
+<strong>Alternative 1 (current choice):</strong> Developers specify a list of available colors for users.<br>
+<strong>Pros:</strong> It is easy to check whether the tag color name user typed in is valid.<br>
+<strong>Cons:</strong> The choices of color is limited.<br>
+<strong>Alternative 2:</strong> User can type in Hex Color Code as the color for tags.<br>
+<strong>Pros:</strong> User may not know what is Hex Color Code.<br>
+<strong>Cons:</strong> The colors available are various.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-customize-font-size-command"><a class="link" href="#enhancement-added-customize-font-size-command">Enhancement Added: Customize font size command</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-2"><a class="link" href="#external-behavior-2">External behavior</a></h4>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="change-font-size-code-fs-code-since-v1-3"><a class="link" href="#change-font-size-code-fs-code-since-v1-3">Change font size : <code>fs</code> since v1.3</a></h3>
+<div class="paragraph">
+<p>Change the font size of the entire application<br>
+Format: <code>fs [FONT SIZE]</code> or <code>fs [+/-]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The available font sizes are: xs(extra small), s(small), m(medium), l(large), xl(extra large).</p>
+</li>
+<li>
+<p>The default font size is m.</p>
+</li>
+<li>
+<p>The font size changed will be auto stored.</p>
+</li>
+<li>
+<p>You can increase (or decrease) the font size by pressing the "+" (or "-") button in the right top corner.</p>
+</li>
+<li>
+<p>The font size that you have choosen will be stored in user preference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>fs xl</code></p>
+</li>
+<li>
+<p><code>fs s</code></p>
+</li>
+<li>
+<p><code>fs +</code></p>
+</li>
+<li>
+<p><code>fs -</code><br></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/fs.png" alt="fs" width="790">
+</div>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-2"><a class="link" href="#justification-2">Justification</a></h4>
+<div class="paragraph">
+<p>Allowing users to change font size of the application makes the app more user-friendly for those with poor eyesight.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="customize-font-size-mechanism"><a class="link" href="#customize-font-size-mechanism">Customize font size mechanism</a></h3>
+<div class="paragraph">
+<p>The font size of the application can be changed via <code>ChangeFontSizeCommand</code> or by pressing the '+' or '-' button on the right top corner.</p>
+</div>
+<div class="paragraph">
+<p>A new class FontSize is used to represent a font size.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the hierarchy of FontSize class</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FontSizeClassDiagram.png" alt="FontSizeClassDiagram" width="500">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only five font sizes are supported: XS, S, M, L, XL
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>User can change the font size by giving the name of the exact font size which they want the app to be changed to. E.g. <code>fs xl</code>. Or they can
+type in "+" or "-" symbol to increase or decrease the current font size. E.g. <code>fs +</code><br></p>
+</div>
+<div class="paragraph">
+<p>Pressing the "+" button equals to giving <code>fs +</code> command and similarly for "-" button.<br></p>
+</div>
+<div class="paragraph">
+<p>If the current font size is the largest one and the user still gives <code>fs +</code> command or presses the "+" button to increase font sizes, a warning
+will be shown on the display box saying "The current font size is the largest one." Similarly for decreasing the font size.</p>
+</div>
+<div class="paragraph">
+<p>When a <code>ChangeFontSizeCommand</code> is made, a <code>ChangeFontSizeEvent</code> is raised. This event will be received by UI components such as
+PersonCard. So that the font size in UI components will be updated accordingly. The following code shows how the event is handled
+in the PersonCard.java.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Subscribe</span>
+<span class="directive">private</span> <span class="type">void</span> handleChangeFontSizeEvent(ChangeFontSizeEvent event) {
+    <span class="predefined-type">String</span> newFontSize = event.getFontSize();
+    initTags(person, newFontSize);
+    setFontSize(newFontSize);
+    setSizeForAllImagesAccordingToFontSize(newFontSize);
+    setSizeForPhotosAccordingToFontSize(newFontSize);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Noted that not only the font size is changed, the size of images and icons also are enlarged or reduced according to the
+new font size.<br></p>
+</div>
+<div class="paragraph">
+<p>When the user exits the app, the current font size will be stored in the preferences.json in the following format.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">guiSettings</span><span class="delimiter">&quot;</span></span> : {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">windowWidth</span><span class="delimiter">&quot;</span></span> : <span class="float">781.0</span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">windowHeight</span><span class="delimiter">&quot;</span></span> : <span class="float">600.0</span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">windowCoordinates</span><span class="delimiter">&quot;</span></span> : {
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">x</span><span class="delimiter">&quot;</span></span> : <span class="integer">426</span>,
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">y</span><span class="delimiter">&quot;</span></span> : <span class="integer">111</span>
+    },
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">fontSize</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">m</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">theme</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">bright</span><span class="delimiter">&quot;</span></span>
+  },
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">addressBookFilePath</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">data/addressbook.xml</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">addressBookName</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">MyAddressBook</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> How to represent a font size?<br>
+<strong>Alternative 1 (current choice):</strong> Create a new class <code>FontSize</code>.<br>
+<strong>Pros:</strong> The methods associated with font size can be encapsulated inside one class.<br>
+<strong>Cons:</strong> It increases coupling as a lot of UI components need to call the method of <code>FontSize</code> class.<br>
+<strong>Alternative 2:</strong> Create a new field of <code>String</code> type in <code>GuiSetting</code> class.<br>
+<strong>Pros:</strong> It is easy to implement.<br>
+<strong>Cons:</strong> The methods associated with font size will appear repeatedly in many UI component classes.</p>
+</div>
+<hr>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-show-google-map-command"><a class="link" href="#enhancement-added-show-google-map-command">Enhancement Added: Show google map command</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-3"><a class="link" href="#external-behavior-3">External behavior</a></h4>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="show-address-of-a-person-code-map-code-since-v1-3"><a class="link" href="#show-address-of-a-person-code-map-code-since-v1-3">Show address of a person : <code>map</code> since v1.3</a></h3>
+<div class="paragraph">
+<p>Shows the address of a person in Google Map in the browser panel.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>map INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Selects the person and loads the Google Map showing address of the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+<li>
+<p>You can also view the address by clicking the address panel of a person.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>map 1</code></p>
+</li>
+<li>
+<p><code>map 2</code></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/map.png" alt="map" width="790">
+</div>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-3"><a class="link" href="#justification-3">Justification</a></h4>
+<div class="paragraph">
+<p>When user wants to check the address of a person in his contacts, he/she can now view the address
+ in Google Map conveniently.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-change-theme-command"><a class="link" href="#enhancement-added-change-theme-command">Enhancement Added: Change theme command</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-4"><a class="link" href="#external-behavior-4">External behavior</a></h4>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="change-the-theme-code-theme-code-since-v1-4"><a class="link" href="#change-the-theme-code-theme-code-since-v1-4">Change the theme : <code>theme</code> since v1.4</a></h3>
+<div class="paragraph">
+<p>Changes the theme of entire application.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>theme [THEME]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Supported themes are: dark, bright</p>
+</li>
+<li>
+<p>The default theme is bright</p>
+</li>
+<li>
+<p>You can also change the theme via "theme" button</p>
+</li>
+<li>
+<p>The theme that you have choosen will be stored in user preference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>theme dark</code></p>
+</li>
+<li>
+<p><code>theme bright</code></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/theme.png" alt="theme" width="840">
+</div>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-4"><a class="link" href="#justification-4">Justification</a></h4>
+<div class="paragraph">
+<p>Having different themes make the app looks more beautiful.
+When users are allowed to choose the theme for the app, the user experience will become nicer.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-parse-the-command-while-the-user-is-typing"><a class="link" href="#enhancement-added-parse-the-command-while-the-user-is-typing">Enhancement Added: Parse the command while the user is typing</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-5"><a class="link" href="#external-behavior-5">External behavior</a></h4>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="check-whether-the-command-s-format-is-valid-while-the-user-is-typing-since-v1-5"><a class="link" href="#check-whether-the-command-s-format-is-valid-while-the-user-is-typing-since-v1-5">Check whether the command&#8217;s format is valid while the user is typing since v1.5</a></h3>
+<div class="paragraph">
+<p>The result display panel will show whether the command is valid while you are typing without pressing an enter key.
+Also, the message displayed will tell you exactly which part goes wrong.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The "Command format is valid" displayed in the result display panel doesn&#8217;t guarantee that
+the command typed is always valid.<br>
+This feature only checks the basic format of a command such as whether
+an input field is missing. Some underlying errors won&#8217;t be detected until the command is executed.<br>
+For example, when the user is giving a <code>ChangeTagColor</code> command,
+it can&#8217;t check whether a tag name given exists or not
+until this command is executed.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/valid.png" alt="valid" width="400">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/pink.png" alt="pink" width="950">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/invalid.png" alt="invalid" width="630">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/invalidbutok.png" alt="invalidbutok" width="430">
+</div>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-5"><a class="link" href="#justification-5">Justification</a></h4>
+<div class="paragraph">
+<p>User can know whether the command typed is valid while typing. User does not need to press enter key and then discover
+an error message and then fix the command typed earlier.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Bugs reported and suggestions posted for other team&#8217;s products (Issues
+<a href="https://github.com/CS2103AUG2017-T13-B1/main/issues/126">#126</a>,
+<a href="https://github.com/CS2103AUG2017-T13-B1/main/issues/129">#129</a>,
+<a href="https://github.com/CS2103AUG2017-T13-B1/main/issues/131">#131</a>)</p>
+</li>
+<li>
+<p>Wrote additional tests to increase coverage from 80% to 82%
+(Pull request <a href="https://github.com/CS2103AUG2017-W13-B2/main/pull/120">#120</a>)</p>
+</li>
+<li>
+<p>Made suggestion for AddressBook level 4 (Issue
+<a href="https://github.com/nus-cs2103-AY1718S1/forum/issues/195">#195</a>)</p>
+</li>
+<li>
+<p>Made suggestion for CS2103 website (Issue
+<a href="https://github.com/nus-cs2103/website/issues/42">#42</a>)</p>
+</li>
+<li>
+<p>Offering features for others to reuse (Issues
+<a href="https://github.com/nus-cs2103-AY1718S1/forum/issues/176">#176</a>,
+<a href="https://github.com/nus-cs2103-AY1718S1/forum/issues/179">#179</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-08 09:55:15 +08:00
+</div>
+</div>
+</body>
+</html>
