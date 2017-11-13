@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Yang Minxing - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Yang Minxing - Project Portfolio</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This portfolio highlights my contributions to the project when studying in School of Computing, National University of Singapore.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-weaver"><a class="link" href="#project-weaver">Project: Weaver</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Weaver is a desktop address book application meant for NUS students. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-W13-B2/main/blob/master/collated/main/yangminxingnus.md">Code contributed</a>] [<a href="https://github.com/CS2103AUG2017-W13-B2/main/blob/master/collated/test/yangminxingnus.md">Test code</a>]</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-remark"><a class="link" href="#enhancement-added-remark">Enhancement Added: Remark</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="remarking-a-person-code-remark-code-since-v1-1"><a class="link" href="#remarking-a-person-code-remark-code-since-v1-1">Remarking a person : <code>remark</code> Since v1.1</a></h3>
+<div class="paragraph">
+<p>Remarks the person identified by the index number.<br>
+Format: <code>remark INDEX r/REMARK</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Remarks a person&#8217;s module information identified by the index number.</p>
+</li>
+<li>
+<p>The content of remark should be in the format MODNAME/MODTYPE/GROUPNUM(Integer).</p>
+</li>
+<li>
+<p>All info should coexist in nusmods. This app dont check the validity of the module information.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>remark 2 r/CS2104/LEC/1</code><br>
+Remarks the 2nd person&#8217;s module information as CS2104/LEC/1.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>remark 1 r/MA1101R/LEC/1,CS2105/LEC/1</code><br>
+Remarks the 2nd person&#8217;s module information as MA1101R and CS2105</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>This feature will be frequently used by most of the NUS students. And it&#8217;s the pre-resquisite for the nusmods integration.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="remark-mechanism"><a class="link" href="#remark-mechanism">Remark mechanism</a></h3>
+<div class="paragraph">
+<p>The remark mechanism remarks contacts with their module information.
+The command takes two parameters, Index and ModuleInfo. TargetIndex specifies the person you want to remark to. And the module information specifies the person&#8217;s module information.
+If the index is invalid or the module information is not in the correct format, exceptions will be thrown.+
+Format - photo [INDEX] [MODULEINFO]
+e.g. remark 1 CS2103/LEC/1</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The correct format for module information is:<br>
+MODULETITLE/MODULETYPE/MODULENUM
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-nusmods"><a class="link" href="#enhancement-added-nusmods">Enhancement Added: nusmods</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-2"><a class="link" href="#external-behavior-2">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nusmods-integration-since-v1-2"><a class="link" href="#nusmods-integration-since-v1-2">NUSMODS Integration Since v1.2</a></h3>
+<div class="paragraph">
+<p>Helps you view your contacts' module information corresponding to this person&#8217;s remark on nusmods by clicking on the person.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/nusmods.png" alt="nusmods" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-2"><a class="link" href="#justification-2">Justification</a></h4>
+<div class="paragraph">
+<p>It is convenient for users to shedule their time using this feature.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nusmods-integration"><a class="link" href="#nusmods-integration">Nusmods Integration</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The nusmods command helps the user to view the nusmods website which displays module information stored in the
+person&#8217;s remark.</p>
+</li>
+<li>
+<p>If the module information are not stored in the correct format or there is no such module in nusmods, it will not be
+displayed.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="working-flow"><a class="link" href="#working-flow">Working flow</a></h4>
+<div class="paragraph">
+<p>When the person panel is clicked, an FXML function will handle this and start to parse the module information.
+After parsing this information into URL format which is supported by NUSMODS, an URL is made and passed to the
+Google engine. And the brower panel will go to the NUSMODS page which contains this person&#8217;s module information.
+<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/nusmods.png" alt="nusmods" width="800">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="reasons-for-this-kind-of-implementation"><a class="link" href="#reasons-for-this-kind-of-implementation">Reasons for this kind of implementation</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>This helps the user to take a quick glance of the the Nusmods information.</p>
+</li>
+<li>
+<p>It is better than opening a brower on the desktop.<br></p>
+</li>
+<li>
+<p>It is convenient for users to shedule their time using this feature.<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-register"><a class="link" href="#enhancement-added-register">Enhancement Added: Register</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-3"><a class="link" href="#external-behavior-3">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="register-since-v1-3"><a class="link" href="#register-since-v1-3">Register Since v1.3</a></h3>
+<div class="paragraph">
+<p>Users now can register new valid accounts. Just click the "Register" button on the bottom
+of the login page. Registering has two requirements:<br>
+1. The username registering should be different
+with all previous ones.<br>
+2. You have to key in identical password twice.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Register.png" alt="Register" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-3"><a class="link" href="#justification-3">Justification</a></h4>
+<div class="paragraph">
+<p>With the register feature, user can create new accounts and login to use seperate files.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-3"><a class="link" href="#implementation-3">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="register-mechanism"><a class="link" href="#register-mechanism">Register mechanism</a></h3>
+<div class="paragraph">
+<p>The register feature enables users to put new valid accounts inside the accounts.json file. The file operations are similar to the one used in Login/Logout feature.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It puts account information in the accounts.json file. Users must key in the same password twice for confirm.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Register.png" alt="Register" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The check mechanism requires the username to be unique from all different ones:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">private</span> <span class="type">boolean</span> checkValid() {
+    <span class="keyword">if</span> (accPrefs.getHm().get(username.getText()) != <span class="predefined-constant">null</span>) {
+        logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Register faild</span><span class="delimiter">&quot;</span></span>);
+        <span class="keyword">return</span> <span class="predefined-constant">false</span>;
+    } <span class="keyword">else</span> {
+        logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Register successful</span><span class="delimiter">&quot;</span></span>);
+        <span class="keyword">return</span> password.getText().equals(password1.getText());
+    }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If user key in wrong password, he will stuck at login page until he manages to get in.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Register is implemented using JavaFX.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@FXML</span>
+<span class="directive">private</span> <span class="type">void</span> handleRegisterEvent() {
+    <span class="keyword">try</span> {
+        logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Trying to register</span><span class="delimiter">&quot;</span></span>);
+        <span class="keyword">if</span> (checkValid()) {
+            accPrefs.getHm().put(username.getText(), password.getText());
+            accPrefs.saveAccountsPrefs(accPrefs, accPrefs.getUserPrefsFilePath());
+            loginPage = <span class="keyword">new</span> LoginPage(primaryStage, config, storage, prefs, logic, accPrefs);
+            <span class="local-variable">this</span>.hide();
+            loginPage.show();
+        }
+    } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) {
+        logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Invalid input</span><span class="delimiter">&quot;</span></span>);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A user can go back using the back button.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-but-not-used-encryption-decryption"><a class="link" href="#enhancement-added-but-not-used-encryption-decryption">Enhancement Added but not used: Encryption/Decryption</a></h3>
+
+</div>
+<div class="sect2">
+<h3 id="encrypt-your-file-not-used-in-v1-5"><a class="link" href="#encrypt-your-file-not-used-in-v1-5">Encrypt your file (not used in V1.5).</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>With this feature embedded in the Weaver, all the files will be encrypted automatically<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>When user tries to login, the "account.json" file is decrypted and information is fetched for checking the
+authentication of the accounts. Once the check is finished, it&#8217;s encrypted.<br></p>
+</li>
+<li>
+<p>When the user login, his xml file will be decrypted and become editable. <br></p>
+</li>
+<li>
+<p>When the user logout, his xml file will be encrypted and become not readable.<br></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">import</span> <span class="include">java.io.File</span>;
+<span class="keyword">import</span> <span class="include">java.io.FileInputStream</span>;
+<span class="keyword">import</span> <span class="include">java.io.FileOutputStream</span>;
+<span class="keyword">import</span> <span class="include">java.io.IOException</span>;
+<span class="keyword">import</span> <span class="include">java.io.InputStream</span>;
+<span class="keyword">import</span> <span class="include">java.io.OutputStream</span>;
+
+<span class="keyword">import</span> <span class="include">javax.crypto.Cipher</span>;
+<span class="keyword">import</span> <span class="include">javax.crypto.CipherInputStream</span>;
+<span class="keyword">import</span> <span class="include">javax.crypto.CipherOutputStream</span>;
+<span class="keyword">import</span> <span class="include">javax.crypto.SecretKey</span>;
+<span class="keyword">import</span> <span class="include">javax.crypto.SecretKeyFactory</span>;
+<span class="keyword">import</span> <span class="include">javax.crypto.spec.DESKeySpec</span>;
+
+<span class="comment">/**
+ * method for encrypt / decrypt the files
+ */</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">CipherUnit</span> {
+    <span class="directive">private</span> <span class="directive">static</span> <span class="predefined-type">String</span> key = <span class="string"><span class="delimiter">&quot;</span><span class="content">squirrel123</span><span class="delimiter">&quot;</span></span>; <span class="comment">// needs to be at least 8 characters for DES</span>
+    <span class="directive">private</span> <span class="directive">static</span> <span class="predefined-type">String</span> dest;
+
+    <span class="comment">/**
+    * class for encrypting files
+    */</span>
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">void</span> encrypt(<span class="predefined-type">String</span> path) {
+        <span class="keyword">try</span> {
+            dest = path;
+            <span class="predefined-type">FileInputStream</span> fis = <span class="keyword">new</span> <span class="predefined-type">FileInputStream</span>(path);
+            <span class="predefined-type">FileOutputStream</span> fos = <span class="keyword">new</span> <span class="predefined-type">FileOutputStream</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">data/temp.xml</span><span class="delimiter">&quot;</span></span>);
+            encryptOrDecrypt(key, <span class="predefined-type">Cipher</span>.ENCRYPT_MODE, fis, fos);
+            swapName(<span class="string"><span class="delimiter">&quot;</span><span class="content">data/temp.xml</span><span class="delimiter">&quot;</span></span>);
+        } <span class="keyword">catch</span> (<span class="predefined-type">Throwable</span> e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    <span class="comment">/**
+    * class for decrypting files
+    */</span>
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">void</span> decrypt(<span class="predefined-type">String</span> path) {
+        <span class="keyword">try</span> {
+            dest = path;
+            <span class="predefined-type">FileInputStream</span> fis = <span class="keyword">new</span> <span class="predefined-type">FileInputStream</span>(path);
+            <span class="predefined-type">FileOutputStream</span> fos = <span class="keyword">new</span> <span class="predefined-type">FileOutputStream</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">data/temp.xml</span><span class="delimiter">&quot;</span></span>);
+            encryptOrDecrypt(key, <span class="predefined-type">Cipher</span>.DECRYPT_MODE, fis, fos);
+            swapName(<span class="string"><span class="delimiter">&quot;</span><span class="content">data/temp.xml</span><span class="delimiter">&quot;</span></span>);
+        } <span class="keyword">catch</span> (<span class="predefined-type">Throwable</span> e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    <span class="comment">/**
+    * translating method
+    */</span>
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">void</span> encryptOrDecrypt(<span class="predefined-type">String</span> key, <span class="type">int</span> mode, <span class="predefined-type">InputStream</span> is, <span class="predefined-type">OutputStream</span> os) <span class="directive">throws</span> <span class="predefined-type">Throwable</span> {
+
+        <span class="predefined-type">DESKeySpec</span> dks = <span class="keyword">new</span> <span class="predefined-type">DESKeySpec</span>(key.getBytes());
+        <span class="predefined-type">SecretKeyFactory</span> skf = <span class="predefined-type">SecretKeyFactory</span>.getInstance(<span class="string"><span class="delimiter">&quot;</span><span class="content">DES</span><span class="delimiter">&quot;</span></span>);
+        <span class="predefined-type">SecretKey</span> desKey = skf.generateSecret(dks);
+        <span class="predefined-type">Cipher</span> cipher = <span class="predefined-type">Cipher</span>.getInstance(<span class="string"><span class="delimiter">&quot;</span><span class="content">DES</span><span class="delimiter">&quot;</span></span>); <span class="comment">// DES/ECB/PKCS5Padding for SunJCE</span>
+
+        <span class="keyword">if</span> (mode == <span class="predefined-type">Cipher</span>.ENCRYPT_MODE) {
+            cipher.init(<span class="predefined-type">Cipher</span>.ENCRYPT_MODE, desKey);
+            <span class="predefined-type">CipherInputStream</span> cis = <span class="keyword">new</span> <span class="predefined-type">CipherInputStream</span>(is, cipher);
+            doCopy(cis, os);
+        } <span class="keyword">else</span> <span class="keyword">if</span> (mode == <span class="predefined-type">Cipher</span>.DECRYPT_MODE) {
+            cipher.init(<span class="predefined-type">Cipher</span>.DECRYPT_MODE, desKey);
+            <span class="predefined-type">CipherOutputStream</span> cos = <span class="keyword">new</span> <span class="predefined-type">CipherOutputStream</span>(os, cipher);
+            doCopy(is, cos);
+        }
+    }
+
+    <span class="comment">/**
+    * do a copy
+    */</span>
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">void</span> doCopy(<span class="predefined-type">InputStream</span> is, <span class="predefined-type">OutputStream</span> os) <span class="directive">throws</span> <span class="exception">IOException</span> {
+        <span class="type">byte</span><span class="type">[]</span> bytes = <span class="keyword">new</span> <span class="type">byte</span>[<span class="integer">64</span>];
+        <span class="type">int</span> numBytes;
+        <span class="keyword">while</span> ((numBytes = is.read(bytes)) != -<span class="integer">1</span>) {
+            os.write(bytes, <span class="integer">0</span>, numBytes);
+        }
+        os.flush();
+        os.close();
+        is.close();
+    }
+
+    <span class="comment">/**
+    * used to replace files encypted/decrypted with the dectypted/encrypted one.
+    */</span>
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">boolean</span> swapName(<span class="predefined-type">String</span> source) {
+        <span class="predefined-type">File</span> tmp = <span class="keyword">new</span> <span class="predefined-type">File</span>(source);
+
+        <span class="predefined-type">File</span> swapFile1 = <span class="keyword">new</span> <span class="predefined-type">File</span>(dest);
+
+        <span class="keyword">return</span> tmp.renameTo(swapFile1);
+
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mechanism-of-encrytion"><a class="link" href="#mechanism-of-encrytion">Mechanism of encrytion</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>We use RES mechanism provided by java to make encrypted files. <br></p>
+</li>
+<li>
+<p>When a file needs to be encrypted/decrypted, the system first create a temporary file named "temp.xml"
+to store the encryption/decryption information.</p>
+</li>
+<li>
+<p>After this temporary file successfully stores all the information. The system will try to rename it as the
+original name of the file before encryption/decryption. And then the previous original file will be replaced by the
+encrypted/decrypted. (This works on OSX but not on Windows and UNIX).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="reason-for-giving-up-this-feature"><a class="link" href="#reason-for-giving-up-this-feature">Reason for giving up this feature</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The most important reason is, different operating system has different ways to manage the files. Thus the current
+mechanism might not work as expected on different operating systems. When replacing files with their encrypted/decrypted copy,
+different operating system will behave differently. Some will replace the file while some will keep both.<br></p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed-future-implementations"><a class="link" href="#enhancement-proposed-future-implementations">Enhancement Proposed: Future Implementations</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>These are the enhancements proposed for the future Weaver v2.0 release.</p>
+</li>
+<li>
+<p>It is written
+as user stories.
+They are sorted by priorities and arranged in a table below:</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have) - <code>* *</code>, Low (unlikely to have) - <code>*</code></p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 59%;">
+<colgroup>
+<col style="width: 22%;">
+<col style="width: 23%;">
+<col style="width: 25%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Priority</th>
+<th class="tableblock halign-left valign-top">As a &#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">I want to &#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">So that I can&#8230;&#8203;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be notified of birthdays</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">send them well wishes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">log in</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">access privately</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">customise the display</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view the list to my preference</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delete people with a specific tag</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clean up my list</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user with frequent contacts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have a favourites list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">find them easily</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see a history bar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep track of my previous searches</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see random people on the front page</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get in touch with old friends</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">confirm before clearing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not clear the contents accidentally</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit a person</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">modify an address conveniently</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">encrypt / decrypt my file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep my file secure yet editable</p></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Wrote additional tests to increase coverage.<br>
+(pull request:
+<a href="https://github.com/CS2103AUG2017-W13-B2/main/pull/115">#115</a>
+<a href="https://github.com/CS2103AUG2017-W13-B2/main/pull/133">#133</a>)</p>
+</li>
+<li>
+<p>Suggestion on addressbook software.<br>
+(issue: <a href="https://github.com/nus-cs2103-AY1718S1/forum/issues/217">#217</a>)</p>
+</li>
+<li>
+<p>Bug reported to other teams.
+(issues: <a href="https://github.com/CS2103AUG2017-T14-B3/main/issues/82">#82</a>)</p>
+</li>
+<li>
+<p>Made enhancements on coding styles: javadoc, uppercase / lowercase, refactoring of static variables,
+optional fields in add commands, remove of redundant testcase and unused codes.
+(pull request:
+<a href="https://github.com/CS2103AUG2017-W13-B2/main/pull/78">#78</a>,
+<a href="https://github.com/CS2103AUG2017-W13-B2/main/pull/83">#83</a>)</p>
+</li>
+<li>
+<p>Made optimization on UI, mainly on login page and register page.
+(pull request:
+<a href="https://github.com/CS2103AUG2017-W13-B2/main/pull/41">#41</a>,
+<a href="https://github.com/CS2103AUG2017-W13-B2/main/pull/78">#78</a>
+)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-12 17:31:38 +08:00
+</div>
+</div>
+</body>
+</html>
