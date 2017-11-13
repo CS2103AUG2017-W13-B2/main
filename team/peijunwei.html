@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Pei Jun Wei - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Pei Jun Wei - Project Portfolio</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This portfolio highlights my projects taken whilst studying in School of
+Computing, National University of Singapore.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-weaver"><a class="link" href="#project-weaver">Project: Weaver</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Weaver is a desktop address book application used by university students to
+ manage their contacts and school life.<br>
+The user interacts with it using a Command-Line Interface (CLI), and it has
+a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 6 kLoC.</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>:<br>
+ [<a href="https://github.com/CS2103AUG2017-W13-B2/main/blob/master/collated/main/pjunwei95.md">Functional code</a>]<br>
+ [<a href="https://github.com/CS2103AUG2017-W13-B2/main/blob/master/collated/test/pjunwei95.md">Test code</a>]</p>
+</div>
+<div class="paragraph">
+<p>This section includes:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enhancement Added (External Behaviour, Implementation, Justification)</p>
+</li>
+<li>
+<p>Enhancement Proposed</p>
+</li>
+<li>
+<p>Other contributions</p>
+</li>
+<li>
+<p>Other Projects</p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="sect2">
+<h3 id="enhancement-added-deleting-a-person-s-tag"><a class="link" href="#enhancement-added-deleting-a-person-s-tag">Enhancement Added: Deleting a person&#8217;s tag</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-person-s-tag-code-deletetag-code-since-v1-3"><a class="link" href="#deleting-a-person-s-tag-code-deletetag-code-since-v1-3">Deleting a person&#8217;s tag : <code>deletetag</code> since v1.3</a></h3>
+<div class="paragraph">
+<p>Deletes the tag(s) of an existing person in the address book.<br>
+Format: <code>deletetag INDEX [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the tag of the person at the specified <code>INDEX</code>. The index refers to the index number shown in the last person listing. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The search is case insensitive. e.g <code>friends</code> will match <code>Friends</code></p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>Friend</code> will not match <code>Friends</code></p>
+</li>
+<li>
+<p>At least one of the tag fields must be provided.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>deletetag 1 t/friends</code><br>
+Deletes the tag <code>friends</code> from the person index <code>1</code>.</p>
+</li>
+<li>
+<p><code>deletetag 2 t/friends t/colleagues</code><br>
+Deletes the tag <code>friends</code> and <code>colleagues</code> from the person index <code>2</code>.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can remove all the person&#8217;s tags by typing <code>edit INDEX t/</code> without specifying any tags after it.
+Refer to the Edit section above for more details.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/deletetaginvalid.png" alt="deletetaginvalid" width="341">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>deletetag 1 t/friends</code></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/deletetagvalid.png" alt="deletetagvalid" width="1360">
+</div>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>Currently, the existing tags are unable to be deleted. It can only be done through
+the <code>Edit</code> command which is repetitive and exhaustive to re-enter the existing tags and
+omit the tag that is to be deleted. Through this function, the user can delete the tag
+with ease.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-person-s-tag-mechanism"><a class="link" href="#deleting-a-person-s-tag-mechanism">Deleting a person&#8217;s tag mechanism</a></h3>
+<div class="paragraph">
+<p>The Deleting a person&#8217;s tag mechanism consists of <code>DeleteTagCommand</code> and <code>DeleteTagCommandParser</code> classes.
+The <code>DeleteTagCommandParser</code> resides inside <code>LogicManager</code>. <code>DeleteTagCommandParser</code> only deals with <code>Parser</code>. It is created from <code>AddressBookParser</code>. The following diagram shows the flow for parser:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LogicClassDiagram.png" alt="LogicClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><code>XYZCommand Parser</code> inherits from the <code>Parser</code> interface and is created by the AddressBook Parser as the <code>DeleteTagCommandParser</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The tags are parsed under <code>parseTagsForDelete</code>, while the person index is parsed under <code>parse</code> before execution. The tags are identified by the prefix <code>t/</code> to be parsed for deletion, and it must be fully matched.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>DeleteTagCommand</code> resides inside <code>LogicManager</code>. It supports undoing and redoing of that modifies the state of Weaver. Such commands will inherit from <code>UndoableCommand</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>DeleteTagCommand</code> only deals with <code>UndoableCommands</code>. Commands that cannot be undone will inherit from <code>Command</code> instead. The following diagram shows the inheritance diagram for commands:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LogicCommandClassDiagram.png" alt="LogicCommandClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><code>UndoableCommand</code> adds an extra layer between the abstract <code>Command</code> class and concrete commands that can be undone, such as the <code>DeleteTagCommand</code>.</p>
+</div>
+<div class="paragraph">
+<p>Note that extra tasks need to be done when executing a command in an <em>undoable</em> way, such as saving the state of the address book before execution. <code>UndoableCommand</code> contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command.</p>
+</div>
+<div class="paragraph">
+<p>Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the <a href="https://www.tutorialspoint.com/design_pattern/template_pattern.htm">template pattern</a>.</p>
+</div>
+<div class="paragraph">
+<p>Commands that are not undoable are implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ListCommand</span> <span class="directive">extends</span> Command {
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> CommandResult execute() {
+        <span class="comment">// ... list logic ...</span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With the extra layer, the commands that are undoable are implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="directive">abstract</span> <span class="type">class</span> <span class="class">UndoableCommand</span> <span class="directive">extends</span> Command {
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> CommandResult execute() {
+        <span class="comment">// ... undo logic ...</span>
+
+        executeUndoableCommand();
+    }
+}
+
+<span class="directive">public</span> <span class="type">class</span> <span class="class">DeleteTagCommand</span> <span class="directive">extends</span> UndoableCommand {
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> CommandResult executeUndoableCommand() {
+        <span class="comment">// ... delete logic ...</span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Inside the <code>DeleteTagCommand</code> class, a <code>DeleteTagDescriptor</code> identifying the tags to be deleted will be created from <code>DeleteTagCommandParser</code>, which will create and update a new <code>createTagDeletedPerson</code> accordingly. This will overwrite the existing <code>ReadOnlyPerson</code> Person&#8217;s Tags while retaining the rest of its attributes as seen from the Model diagram below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ModelClassDiagram.png" alt="ModelClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see from the <code>Model</code> diagram, the <code>Person</code> retains the attributes that inherit it except for its own <code>UniqueTagList</code>, which is modified only for that particular <code>Person</code>.</p>
+</div>
+<div class="paragraph">
+<p>Suppose that the user has just launched the application.</p>
+</div>
+<div class="paragraph">
+<p>The user executes a new <code>DeleteTagCommand</code>, <code>deletetag 5 t/friends</code>, to delete the tag <code>friends</code> of the 5th person in the address book. The tags and the index are parsed into <code>DeleteTagCommandParser</code> before the <code>deletetag</code> command executes.</p>
+</div>
+<div class="paragraph">
+<p>As the user continues to use the program, he might decide to delete more than one tags. For example, the user may execute <code>deletetag 2 t/colleagues t/friends</code> to delete multiple tags.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the tags are not fully matched, it will throw an <code>Exception</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The user now decides that deleting the tags was a mistake, and decides to undo that action using <code>undo</code>.</p>
+</div>
+<div class="paragraph">
+<p>Using the <code>Undo/Redo</code> stack, we will restore the address book to the state before the <code>delete/t</code> command is executed.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the <code>undoStack</code> is empty, then there are no other commands left to be undone, and an <code>Exception</code> will be thrown when popping the <code>undoStack</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Implementation of <code>DeleteTagCommand</code><br>
+<strong>Alternative 1 (current choice):</strong> To access the <code>Person</code> and overwrite a new <code>Person</code> to it.<br>
+<strong>Pros:</strong> It will not lose the same tags for other <code>Person</code> it is now part of the default behaviour. Classes that deal with <code>Tags</code> like <code>UniqueTagsList</code> do not have to be deleted.<br>
+<strong>Cons:</strong> It will be hard for new developers to understand the <code>UniqueTagsList</code>.<br>
+<strong>Alternative 2:</strong> To delete the <code>Tag</code> in the <code>UniqueTagsList</code><br>
+<strong>Pros:</strong> It does not involve <code>Person</code> model, easier for new developers to understand with less coupling.<br>
+<strong>Cons:</strong> It will defeat the purpose of deleting a tag solely of the specific <code>Person</code>. Might take more effort to organise tags for users.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Implementation of <code>DeleteTagCommandParser</code><br>
+<strong>Alternative 1 (current choice):</strong> To be able to utilise <code>Index</code> and tag prefix <code>t/</code>.<br>
+<strong>Pros:</strong> It will be able to delete multiple tags. It is easy to implement.<br>
+<strong>Cons:</strong> It will pose difficulties for the user. User will have to type additional prefixes to delete.<br>
+<strong>Alternative 2:</strong> To not utilise prefix <code>t/</code>.<br>
+<strong>Pros:</strong> It will be easier and faster to delete with no prefix identifier.<br>
+<strong>Cons:</strong> It will be difficult to implement, as it is harder to tokenize the arguments to differentiate between index and tag.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Implementation of deleting only a person&#8217;s tags<br>
+<strong>Alternative 1 (current choice):</strong>
+To continue to contain the tag in <code>UniqueTagsList</code> even if there are no tags for any <code>Person</code>.<br>
+<strong>Pros:</strong> It will be easy to implement.<br>
+<strong>Cons:</strong> It may have performance issues in terms of memory usage.<br>
+<strong>Alternative 2:</strong> To clean up the <code>UniqueTagsList</code> after deleting its last tag.<br>
+<strong>Pros:</strong> It will use less memory (e.g. for <code>UniqueTagsList</code>, will not contain tags that are not present in any <code>Person</code>).<br>
+<strong>Cons:</strong> It must be ensured that the implementation for discovering the last tags of the list
+ is correct. It may be harder to implement for new developers.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-locating-persons-by-tag"><a class="link" href="#enhancement-added-locating-persons-by-tag">Enhancement Added: Locating persons by tag</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-2"><a class="link" href="#external-behavior-2">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="locating-persons-by-tag-code-findtag-code-since-v1-2"><a class="link" href="#locating-persons-by-tag-code-findtag-code-since-v1-2">Locating persons by tag: <code>findtag</code> since v1.2</a></h3>
+<div class="paragraph">
+<p>Finds persons whose tags contain any of the given keywords.<br>
+Format: <code>findtag KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Make sure there are no whitespaces between <code>find</code> and <code>tag</code>!
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Given three people with tags: <code>John Doe t/Friends</code>, <code>Hans Gruber t/Friends</code>, and <code>Bo Yang t/Colleagues</code></p>
+</li>
+<li>
+<p>The search is case insensitive. e.g <code>friends</code> will match <code>Friends</code></p>
+</li>
+<li>
+<p>All the tags are searched.</p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>Friend</code> will not match <code>Friends</code></p>
+</li>
+<li>
+<p>Persons matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>friends</code> will return <code>John Doe</code>, <code>Hans Gruber</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findtag friends</code><br>
+Returns <code>John Doe</code> and <code>Hans Gruber</code></p>
+</li>
+<li>
+<p><code>findtag friends colleagues</code><br>
+Returns any person having tags <code>Friends</code> or <code>Colleagues</code></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/findtaginvalid.png" alt="findtaginvalid" width="912">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findtag friends</code></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/findtagvalid.png" alt="findtagvalid" width="1360">
+</div>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-2"><a class="link" href="#justification-2">Justification</a></h4>
+<div class="paragraph">
+<p>While Weaver is able to list the addresses, it is unable to allow the user to view
+based on the tags they created. By locating a person by tag, the user can sort the list
+and find the tags as a result. This also remove the need for a favourite contact
+as the user just need to tag the address as "favourite" and find that tag.</p>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-auto-completion"><a class="link" href="#enhancement-added-auto-completion">Enhancement Added: Auto-completion</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-3"><a class="link" href="#external-behavior-3">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="auto-completion-since-v1-4"><a class="link" href="#auto-completion-since-v1-4">Auto-completion since v1.4</a></h3>
+<div class="paragraph">
+<p>The command box has a auto-complete feature to provide suggestions to your commands.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/autocomplete.png" alt="autocomplete" width="313">
+</div>
+</div>
+<div class="paragraph">
+<p>Type any letters to get some suggestions on what command to use.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To avoid accidental auto-completion, you can press <code>ESC</code> to cancel and continue your input.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-3"><a class="link" href="#justification-3">Justification</a></h4>
+<div class="paragraph">
+<p>Typing all the commands out can be a hassle, so this implementation of the auto-complete
+function allows the user to select frequently used commands with convenience.</p>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-clearing-all-entries"><a class="link" href="#enhancement-added-clearing-all-entries">Enhancement Added: Clearing all entries</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-4"><a class="link" href="#external-behavior-4">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clearing-all-entries-code-clear-code-since-v1-3"><a class="link" href="#clearing-all-entries-code-clear-code-since-v1-3">Clearing all entries : <code>clear</code> since v1.3</a></h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+To interact solely with the keyboard, make your selection and press <code>SPACE</code> instead of <code>ENTER</code>!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Clears all entries from the address book.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>clear</code><br></p>
+</div>
+<div class="paragraph">
+<p>A clear confirmation will pop-up to reaffirm your clear command in the event of accidental clearing.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/clearconfirmation.png" alt="clearconfirmation" width="1362">
+</div>
+</div>
+<div class="paragraph">
+<p>By default, you will be able to confirm clearing by pressing <code>ENTER</code> on the keyboard, or clicking <code>OK</code>.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, you can cancel by highlighting the <code>Cancel</code> button with the keyboard followed by the <code>SPACE</code> button.
+Alternatively, you can also click the <code>X</code> button or the <code>Cancel</code> button.<br></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Experienced users may be able to bypass the clear confirmation window by its alias:<br>
+<code>cls</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-4"><a class="link" href="#justification-4">Justification</a></h4>
+<div class="paragraph">
+<p>Initially, the clear command can be done in one step. However, new users might not be
+accustomed to the application. Also, they probably skipped the user guide as well, so
+are unsure of the undo and redo features. Therefore, they may be alarmed when they
+clear their contacts. This seeks to remedy this problem by providing a confirmation
+popup to allow the user the option to consider before clearing their contacts.</p>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-backing-up-your-weaver"><a class="link" href="#enhancement-added-backing-up-your-weaver">Enhancement Added: Backing up your Weaver</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-5"><a class="link" href="#external-behavior-5">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="backing-up-your-weaver-code-backup-code-since-v1-5"><a class="link" href="#backing-up-your-weaver-code-backup-code-since-v1-5">Backing up your Weaver : <code>backup</code> since v1.5</a></h3>
+<div class="paragraph">
+<p>Backup your address book information in Weaver.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>backup</code><br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Back up your address book information in Weaver according to your own accounts.</p>
+</li>
+<li>
+<p>The file will be saved in the /data folder as the following format:<br>
+<code>[Account Username]-backup.xml</code></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/backup.png" alt="backup" width="237">
+</div>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-5"><a class="link" href="#justification-5">Justification</a></h4>
+<div class="paragraph">
+<p>While the address book data in Weaver is saved automatically after each changes, a
+user may want to back up his/her copy just in case. This feature allows the additional
+functionality to backup in a file that is identifiable to the user.</p>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed-future-implementations"><a class="link" href="#enhancement-proposed-future-implementations">Enhancement Proposed: Future Implementations</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>These are the enhancements proposed for the future Weaver v2.0 release.</p>
+</li>
+<li>
+<p>It is written
+as user stories.
+They are sorted by priorities and arranged in a table below:</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have) - <code>* *</code>, Low (unlikely to have) - <code>*</code></p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 59%;">
+<colgroup>
+<col style="width: 22%;">
+<col style="width: 23%;">
+<col style="width: 25%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Priority</th>
+<th class="tableblock halign-left valign-top">As a &#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">I want to &#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">So that I can&#8230;&#8203;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be notified of birthdays</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">send them well wishes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">log in</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">access privately</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">customise the display</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view the list to my preference</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delete people with a specific tag</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clean up my list</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user with frequent contacts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mark a contact as favourite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">find them easily</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see a history bar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep track of my previous searches</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see random people on the front page</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get in touch with old friends</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">confirm before clearing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not clear the contents accidentally</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit a person</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">modify an address conveniently</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Suggested features to be implemented in the future in the user stories.
+(Pull request:<br>
+ <a href="https://github.com/pjunwei95/addressbook-level4/commit/e50666704484046e231e1c2a33f1eadffd0b51ae">#13</a>)</p>
+</li>
+<li>
+<p>Helped in reporting bugs for a team&#8217;s [CS2103AUG2017-W09-B2] open-sourced software.
+(Issues:<br>
+<a href="https://github.com/CS2103AUG2017-W09-B2/main/issues/119">#119</a>,<br>
+<a href="https://github.com/CS2103AUG2017-W09-B2/main/issues/120">#120</a>,<br>
+<a href="https://github.com/CS2103AUG2017-W09-B2/main/issues/122">#122</a>),<br>
+<a href="https://github.com/CS2103AUG2017-W09-B2/main/issues/124">#124</a>)</p>
+</li>
+<li>
+<p>Updated new colors to be included in tags.
+(Pull request:<br>
+ <a href="https://github.com/pjunwei95/addressbook-level4/commit/e9a411bc29b1154e7b5012850e44329371da5dfa">#64</a>)</p>
+</li>
+<li>
+<p>Fixed global bug for help window. (Issue:<br>
+<a href="https://github.com/se-edu/addressbook-level4/issues/727">#727</a>)</p>
+</li>
+<li>
+<p>Wrote additional tests to increase coverage to 85% (Pull request:<br>
+<a href="https://github.com/CS2103AUG2017-W13-B2/main/pull/141">#141</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-nuseekers"><a class="link" href="#project-nuseekers">Project: NUSeekers</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A software project in developing an inclusive community
+within the National University of Singapore.<br>
+It is written in with Meteor, using JavaScript, HTML5, CSS, JSON, and MongoDB.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-13 16:40:20 +08:00
+</div>
+</div>
+</body>
+</html>
