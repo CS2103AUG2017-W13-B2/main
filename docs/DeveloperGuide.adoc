@@ -383,11 +383,13 @@ Below is a code snippet which shows how the search command parses the arguements
     }
 ---
 // tag::remark[]
+
+
 === Remark mechanism
 
 The remark mechanism remarks contacts with their module information.
 The command takes two parameters, Index and ModuleInfo. TargetIndex specifies the person you want to remark to. And the module information specifies the person's module information.
-If the index is invalid or the module information is not in the correct format, exceptions will be thrown.+
+If the index is invalid or the module information is not in the correct format, exceptions will be thrown. +
 Format - photo [INDEX] [MODULEINFO]
 e.g. remark 1 CS2103/LEC/1
 
@@ -505,7 +507,7 @@ private boolean checkValid() {
 ----
 
 [NOTE]
-If user key in wrong password, he will stuck at login page until he manages to get in.
+If user key in wrong password, he will be stuck at login page until he manages to get in.
 
 Register is implemented using JavaFX.
 [source,java]
@@ -947,7 +949,8 @@ loadPage(url);
     }
 ---
 
-image::FaceBookSequence.png[width="800"]
+image::FacebookSequence.png[width="790"]
+
 Figure 3.1
 
 ** Refer to figure 3.1 above which shows the sequence diagram of the Facebook command. +
@@ -1065,7 +1068,7 @@ image::ReminderArchi.png[width="800"]
 ** The reminders panel is implemented in a similar manner like the person list panel. +
 ** Data is written/stored in the same addressbook.xml file. +
 
-image::LogicReminder.png[width="800"]]
+image::LogicReminder.png[width="800"]
 (Figure 5.2)
 
 Figure 5.2 above shows the Logic Component Diagram of the Reminders Panel implementation. +

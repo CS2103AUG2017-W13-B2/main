@@ -35,7 +35,7 @@ public class CommandBox extends UiPart<Region> {
                                                     "select", "search", "deletetag", "findtag",
                                                     "photo", "facebook", "color",
                                                     "fs", "remark", "map", "theme"};
-    //@@author pjunwei95
+    //@@author
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
     private ListElementPointer historySnapshot;

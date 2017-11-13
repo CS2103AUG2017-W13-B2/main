@@ -1,5 +1,5 @@
 # generated
-###### /java/seedu/address/logic/commands/UndoableCommand.java
+###### \java\seedu\address\logic\commands\UndoableCommand.java
 ``` java
     }
 
@@ -10,13 +10,13 @@
     }
 }
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
 
     /**
@@ -42,7 +42,7 @@
     }
 
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     /**
      * Ensures that every tag in this person:
@@ -87,7 +87,7 @@
     }
 
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
     //// tag-level operations
 
@@ -95,7 +95,7 @@
         tags.add(t);
     }
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
 
     @Override
@@ -120,7 +120,7 @@
 
 }
 ```
-###### /java/seedu/address/storage/XmlSerializableAddressBook.java
+###### \java\seedu\address\storage\XmlSerializableAddressBook.java
 ``` java
 
     /**
@@ -131,7 +131,7 @@
         persons = new ArrayList<>();
         tags = new ArrayList<>();
 ```
-###### /java/seedu/address/storage/XmlSerializableAddressBook.java
+###### \java\seedu\address\storage\XmlSerializableAddressBook.java
 ``` java
     }
 
@@ -142,7 +142,7 @@
         this();
         reminders.addAll(src.getReminderList().stream().map(XmlAdaptedReminder::new).collect(Collectors.toList()));
 ```
-###### /java/seedu/address/storage/XmlSerializableAddressBook.java
+###### \java\seedu\address\storage\XmlSerializableAddressBook.java
 ``` java
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
@@ -161,7 +161,7 @@
         return FXCollections.unmodifiableObservableList(persons);
     }
 ```
-###### /java/seedu/address/storage/XmlSerializableAddressBook.java
+###### \java\seedu\address\storage\XmlSerializableAddressBook.java
 ``` java
     @Override
     public ObservableList<Tag> getTagList() {

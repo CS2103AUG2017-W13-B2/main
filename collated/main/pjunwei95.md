@@ -1,5 +1,5 @@
 # pjunwei95
-###### /java/seedu/address/commons/events/model/BackUpEvent.java
+###### \java\seedu\address\commons\events\model\BackUpEvent.java
 ``` java
 /**
  * Indicates a request to backup Weaver
@@ -19,7 +19,7 @@ public class BackUpEvent extends BaseEvent {
 
 }
 ```
-###### /java/seedu/address/commons/util/StringUtil.java
+###### \java\seedu\address\commons\util\StringUtil.java
 ``` java
     /**
      * Returns true if the {@code tagSet} contains the {@code word}.
@@ -83,7 +83,7 @@ public class BackUpEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/BackUpCommand.java
+###### \java\seedu\address\logic\commands\BackUpCommand.java
 ``` java
 /**
  * Backup the Address Book
@@ -118,7 +118,7 @@ public class BackUpCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/ClearCommand.java
+###### \java\seedu\address\logic\commands\ClearCommand.java
 ``` java
 import static java.util.Objects.requireNonNull;
 
@@ -142,7 +142,7 @@ public class ClearCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/ClearPopupCommand.java
+###### \java\seedu\address\logic\commands\ClearPopupCommand.java
 ``` java
 import static java.util.Objects.requireNonNull;
 
@@ -175,7 +175,7 @@ public class ClearPopupCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/DeleteTagCommand.java
+###### \java\seedu\address\logic\commands\DeleteTagCommand.java
 ``` java
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -366,7 +366,7 @@ public class DeleteTagCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/FindTagCommand.java
+###### \java\seedu\address\logic\commands\FindTagCommand.java
 ``` java
 import seedu.address.model.tag.TagContainsKeywordsPredicate;
 
@@ -403,7 +403,7 @@ public class FindTagCommand extends Command {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/AddressBookParser.java
+###### \java\seedu\address\logic\parser\AddressBookParser.java
 ``` java
         case FindTagCommand.COMMAND_WORD:
             return new FindTagCommandParser().parse(arguments);
@@ -419,7 +419,7 @@ public class FindTagCommand extends Command {
             return new BackUpCommand();
 
 ```
-###### /java/seedu/address/logic/parser/DeleteTagCommandParser.java
+###### \java\seedu\address\logic\parser\DeleteTagCommandParser.java
 ``` java
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -492,7 +492,7 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/FindTagCommandParser.java
+###### \java\seedu\address\logic\parser\FindTagCommandParser.java
 ``` java
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
@@ -527,7 +527,7 @@ public class FindTagCommandParser implements Parser<FindTagCommand> {
 
 }
 ```
-###### /java/seedu/address/model/tag/TagContainsKeywordsPredicate.java
+###### \java\seedu\address\model\tag\TagContainsKeywordsPredicate.java
 ``` java
 /**
  * Tests that a {@code ReadOnlyPerson}'s {@code Tag}(s) matches any of the keywords given.
@@ -554,7 +554,7 @@ public class TagContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
 
 }
 ```
-###### /java/seedu/address/storage/StorageManager.java
+###### \java\seedu\address\storage\StorageManager.java
 ``` java
     @Override
     public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
@@ -574,7 +574,7 @@ public class TagContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
 
 }
 ```
-###### /java/seedu/address/storage/XmlAddressBookStorage.java
+###### \java\seedu\address\storage\XmlAddressBookStorage.java
 ``` java
     /**
      * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}
@@ -589,171 +589,14 @@ public class TagContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
     }
 }
 ```
-###### /java/seedu/address/ui/CommandBox.java
+###### \java\seedu\address\ui\CommandBox.java
 ``` java
     private static final String[] suggestedWords = {"add", "delete", "edit", "find",
                                                     "select", "search", "deletetag", "findtag",
                                                     "photo", "facebook", "color",
                                                     "fs", "remark", "map", "theme"};
 ```
-###### /java/seedu/address/ui/CommandBox.java
-``` java
-    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    private final Logic logic;
-    private ListElementPointer historySnapshot;
-    private AddressBookParser addressBookParser;
-
-    @FXML
-    private TextField commandTextField;
-
-    public CommandBox(Logic logic) {
-        super(FXML);
-        this.logic = logic;
-
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        historySnapshot = logic.getHistorySnapshot();
-
-        setFontSize(FontSize.getCurrentFontSizeLabel());
-        registerAsAnEventHandler(this);
-        addressBookParser = new AddressBookParser();
-    }
-
-    /**
-     * Handles the key press event, {@code keyEvent}.
-     */
-    @FXML
-    private void handleKeyPress(KeyEvent keyEvent) {
-        logger.info("Handling key press.");
-        switch (keyEvent.getCode()) {
-        case UP:
-            // As up and down buttons will alter the position of the caret,
-            // consuming it causes the caret's position to remain unchanged
-            keyEvent.consume();
-
-            navigateToPreviousInput();
-            break;
-        case DOWN:
-            keyEvent.consume();
-            navigateToNextInput();
-            break;
-        default:
-            // let JavaFx handle the keypress
-        }
-    }
-
-    /**
-     * Updates the text field with the previous input in {@code historySnapshot},
-     * if there exists a previous input in {@code historySnapshot}
-     */
-    private void navigateToPreviousInput() {
-        assert historySnapshot != null;
-        if (!historySnapshot.hasPrevious()) {
-            return;
-        }
-
-        replaceText(historySnapshot.previous());
-    }
-
-    /**
-     * Updates the text field with the next input in {@code historySnapshot},
-     * if there exists a next input in {@code historySnapshot}
-     */
-    private void navigateToNextInput() {
-        assert historySnapshot != null;
-        if (!historySnapshot.hasNext()) {
-            return;
-        }
-
-        replaceText(historySnapshot.next());
-    }
-
-    /**
-     * Sets {@code CommandBox}'s text field with {@code text} and
-     * positions the caret to the end of the {@code text}.
-     */
-    private void replaceText(String text) {
-        commandTextField.setText(text);
-        commandTextField.positionCaret(commandTextField.getText().length());
-    }
-
-    /**
-     * Handles the Enter button pressed event.
-     */
-    @FXML
-    private void handleCommandInputChanged() {
-        try {
-            String command = commandTextField.getText();
-            CommandResult commandResult = logic.execute(command);
-            initHistory();
-            historySnapshot.next();
-            // process result of the command
-            commandTextField.setText("");
-            logger.info("Result: " + commandResult.feedbackToUser);
-            raise(new NewResultAvailableEvent(commandResult.feedbackToUser, false));
-
-        } catch (CommandException | ParseException e) {
-            initHistory();
-            // handle command failure
-            setStyleToIndicateCommandFailure();
-            logger.info("Invalid command: " + commandTextField.getText());
-            raise(new NewResultAvailableEvent(e.getMessage(), true));
-        }
-    }
-
-    /**
-     * Handle a input command by passing a string
-     */
-    public void handleCommandInputChanged(String inputCommand) {
-        try {
-            CommandResult commandResult = logic.execute(inputCommand);
-            initHistory();
-            historySnapshot.next();
-            // process result of the command
-            commandTextField.setText("");
-            logger.info("Result: " + commandResult.feedbackToUser);
-            raise(new NewResultAvailableEvent(commandResult.feedbackToUser, false));
-        } catch (CommandException | ParseException e) {
-            initHistory();
-            // handle command failure
-            setStyleToIndicateCommandFailure();
-            logger.info("Invalid command: " + inputCommand);
-            raise(new NewResultAvailableEvent(e.getMessage(), true));
-        }
-    }
-
-    /**
-     * Initializes the history snapshot.
-     */
-    private void initHistory() {
-        historySnapshot = logic.getHistorySnapshot();
-        // add an empty string to represent the most-recent end of historySnapshot, to be shown to
-        // the user if she tries to navigate past the most-recent end of the historySnapshot.
-        historySnapshot.add("");
-    }
-
-    /**
-     * Sets the command box style to use the default style.
-     */
-    private void setStyleToDefault() {
-        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
-    }
-
-    /**
-     * Sets the command box style to indicate a failed command.
-     */
-    private void setStyleToIndicateCommandFailure() {
-        ObservableList<String> styleClass = commandTextField.getStyleClass();
-
-        if (styleClass.contains(ERROR_STYLE_CLASS)) {
-            return;
-        }
-
-        styleClass.add(ERROR_STYLE_CLASS);
-    }
-
-```
-###### /java/seedu/address/ui/CommandBox.java
+###### \java\seedu\address\ui\CommandBox.java
 ``` java
     @FXML
     /**

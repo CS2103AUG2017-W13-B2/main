@@ -18,7 +18,7 @@ Weaver symbolises the weaving of out contacts in order to stay connected. +
 
 === Ronak Lakhotia
 image::ronaklakhotia.png[width="150", align="left"]
-{empty}[https://github.com/RonakLakhotia[github]][https://github.com/CS2103AUG2017-W13-B2/main/blob/master/docs/team/RonakLakhotia.adoc[portfolio]]
+{empty}[https://github.com/RonakLakhotia[github]][https://cs2103aug2017-w13-b2.github.io/main/team/RonakLakhotia.html[portfolio html]][https://github.com/CS2103AUG2017-W13-B2/main/blob/master/docs/team/RonakLakhotia.adoc[portfolio adoc]]
 
 Role: Co-ordination and Testing +
 
@@ -41,7 +41,7 @@ Make sure that all work is done in the correct format.In addition, in charge of 
 
 === Yang Minxing
 image::yangminxing.png[width="150", align="left"]
-{empty}[https://github.com/yangminxingnus[github]][<<yangminxing#, portfolio>>]
+{empty}[https://github.com/yangminxingnus[github]][https://cs2103aug2017-w13-b2.github.io/main/team/yangminxing.html[portfolio]]
 
 Role: In charge of Storage and UI +
 Responsibilities: Ensure that the interface of the Application is of good quality.
@@ -51,7 +51,7 @@ Ensures competency with JAVAFX. As for main components, is in charge of storage 
 
 === Pei Junwei
 image::pjunwei.png[width="150", align="left"]
-{empty}[https://github.com/pjunwei95[github]][<<peijunwei#, portfolio>>]
+{empty}[https://github.com/pjunwei95[github]][https://cs2103aug2017-w13-b2.github.io/main/team/peijunwei.html[portfolio]]
 
 Role: Code Quality, Integration and Documentation +
 Responsibilities: Ensure the code quality of the SUT is maintained at all times.

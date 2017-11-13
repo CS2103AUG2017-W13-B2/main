@@ -474,7 +474,7 @@ image::facebook.png[width="790"]
 e.g. - `facebook 2`
 ** Result ** - You will see a prompt telling you that the person has no username. +
 
-image::username.png[width="790"]
+image::Username.png[width="790"]
 // end::facebook[]
 
 // tag::map[]

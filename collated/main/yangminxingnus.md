@@ -1193,8 +1193,6 @@ public class RegisterPage extends UiPart<Region> {
         this.registerPage = registerPage;
     }
 ```
-
-
 ###### \resources\view\LoginPage.fxml
 ``` fxml
 <?import java.net.URL?>
@@ -1286,4 +1284,3 @@ public class RegisterPage extends UiPart<Region> {
    </stylesheets>
 </VBox>
 ```
-
